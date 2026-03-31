@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presentación 1 — Familia Nuclear</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1B3A5C;--gold:#C9A84C;--gold-l:#E8C96A;--cream:#FAF7F2;--warm:#F5EFE6;--text:#2C2C2C;--muted:#6A6050;--green:#1A5C35;--teal:#0E5C50;--purple:#4A235A;--red:#8B0000;--orange:#7D3C00;--lb:#D6E4F0;--lg:#E8F5EE;--lp:#EAD0FF;--ly:#FFF8E1;--lgo:#FDF3DC;--rl:#FDECEA;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Outfit',sans-serif;background:#0F2538;}
+.deck{width:100vw;height:100vh;position:relative;overflow:hidden;}
+.slide{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:3vw 4vw;opacity:0;transform:translateX(60px);transition:opacity .5s ease,transform .5s ease;pointer-events:none;}
+.slide.active{opacity:1;transform:translateX(0);pointer-events:all;}
+.slide.out{opacity:0;transform:translateX(-60px);}
+.progress{position:fixed;top:0;left:0;height:4px;background:var(--gold);transition:width .4s;z-index:200;}
+.counter{position:fixed;bottom:1.5vh;right:2vw;font-size:clamp(11px,1.2vw,14px);color:rgba(255,255,255,.35);z-index:200;letter-spacing:.1em;}
+.nav-btn{position:fixed;top:50%;transform:translateY(-50%);width:clamp(36px,3.5vw,50px);height:clamp(36px,3.5vw,50px);border-radius:50%;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);color:var(--gold);font-size:clamp(14px,1.5vw,20px);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:200;transition:all .2s;}
+.nav-btn:hover{background:rgba(201,168,76,.3);}
+.nav-prev{left:1vw;}.nav-next{right:1vw;}
+.keys-hint{position:fixed;bottom:1.5vh;left:50%;transform:translateX(-50%);font-size:clamp(10px,1vw,12px);color:rgba(255,255,255,.2);z-index:200;letter-spacing:.08em;}
+.eyebrow{font-size:clamp(10px,1.1vw,14px);font-weight:600;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2vh;display:block;}
+.display{font-family:'Cormorant Garamond',serif;line-height:1.1;}
+.display em{font-style:italic;color:var(--gold-l);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:2.5vw;width:100%;max-width:1400px;}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2vw;width:100%;max-width:1400px;}
+.slide-inner{width:100%;max-width:1300px;}
+.card{background:white;border-radius:14px;padding:clamp(14px,1.8vh,24px) clamp(16px,1.8vw,28px);margin-bottom:1.5vh;}
+.card-green{background:var(--lg);border-left:4px solid var(--green);}
+.tbl{width:100%;border-collapse:collapse;font-size:clamp(11px,1.2vw,15px);}
+.tbl th{background:var(--navy);color:white;padding:clamp(7px,.9vh,12px) clamp(10px,1vw,16px);text-align:left;font-weight:600;letter-spacing:.03em;}
+.tbl td{padding:clamp(7px,.8vh,11px) clamp(10px,1vw,16px);border-bottom:1px solid #eee;color:var(--text);}
+.tbl tr:nth-child(even) td{background:#F7F9FC;}
+.tbl tr:last-child td{border-bottom:none;font-weight:600;}
+.tbl-green th{background:var(--green);}
+.tbl-red th{background:var(--red);}
+.nota{background:var(--ly);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:clamp(10px,1.2vh,16px) clamp(14px,1.4vw,20px);font-size:clamp(11px,1.1vw,14px);line-height:1.6;color:var(--text);margin-top:1.5vh;}
+.cover-glow{position:absolute;width:60vw;height:60vh;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.07) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);animation:breathe 4s ease-in-out infinite;pointer-events:none;}
+@keyframes breathe{0%,100%{transform:translate(-50%,-50%) scale(1);}50%{transform:translate(-50%,-50%) scale(1.08);}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<button class="nav-btn nav-prev" onclick="changeSlide(-1)">&#8592;</button>
+<button class="nav-btn nav-next" onclick="changeSlide(1)">&#8594;</button>
+<div class="counter" id="counter"></div>
+<div class="keys-hint">&#8592; &#8594; para navegar &middot; F para pantalla completa &middot; Presentaci&oacute;n 1 &mdash; Familia Nuclear</div>
+<div class="deck" id="deck">
+
+<!-- ===== S0: PORTADA ===== -->
+<div class="slide active" id="s0" style="background:var(--navy);">
+  <div class="cover-glow"></div>
+  <div style="text-align:center;position:relative;max-width:1000px;">
+    <span class="eyebrow">Plan Estrat&eacute;gico &mdash; Familia Nuclear &middot; Marzo 2026</span>
+    <h1 class="display" style="font-size:clamp(42px,6vw,88px);font-weight:300;color:white;margin-bottom:2vh;">Un plan para <em>dos empresas,</em><br>tres generaciones<br>y una sola familia.</h1>
+    <p style="font-size:clamp(14px,1.5vw,20px);font-weight:300;color:rgba(255,255,255,.6);margin-bottom:3vh;line-height:1.6;">Esta presentaci&oacute;n muestra el plan completo de VERAXIS ONE y SENDA<br>para Carlos, la esposa y Antonella &mdash; la familia nuclear.</p>
+    <div style="display:flex;justify-content:center;gap:2vw;flex-wrap:wrap;">
+      <div style="background:rgba(255,255,255,.08);border:1px solid rgba(201,168,76,.3);border-radius:10px;padding:1.2vh 1.8vw;">
+        <p style="font-size:clamp(9px,.9vw,12px);letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.4vh;">VERAXIS ONE</p>
+        <p style="font-size:clamp(13px,1.3vw,17px);color:white;">SaaS B2B &middot; Verificaci&oacute;n con IA</p>
+      </div>
+      <div style="background:rgba(255,255,255,.08);border:1px solid rgba(201,168,76,.3);border-radius:10px;padding:1.2vh 1.8vw;">
+        <p style="font-size:clamp(9px,.9vw,12px);letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.4vh;">SENDA</p>
+        <p style="font-size:clamp(13px,1.3vw,17px);color:white;">App Familiar &middot; Seguridad y Salud</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===== S1: LOS DOS NEGOCIOS ===== -->
+<div class="slide" id="s1" style="background:var(--warm);">
+  <div class="slide-inner">
+    <span class="eyebrow">Arquitectura del grupo</span>
+    <h2 class="display" style="font-size:clamp(28px,3.5vw,52px);font-weight:400;color:var(--navy);margin-bottom:2.5vh;">Dos negocios &mdash; un solo motor familiar.</h2>
+    <div class="two-col" style="align-items:start;">
+      <!-- VERAXIS ONE -->
+      <div style="background:var(--navy);border-radius:14px;padding:clamp(18px,2vh,28px) clamp(20px,2vw,32px);">
+        <span style="font-size:clamp(9px,.9vw,12px);font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.8vh;display:block;">B2B &middot; SaaS &middot; Activo hoy</span>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3vw,44px);font-weight:600;color:white;margin-bottom:1vh;">VERAXIS ONE</h3>
+        <p style="font-size:clamp(12px,1.2vw,16px);color:rgba(255,255,255,.65);margin-bottom:1.5vh;line-height:1.6;">Motor de verificaci&oacute;n informativa con IA. Periodistas, creadores, abogados y m&eacute;dicos verifican su contenido antes de publicar.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1vw;margin-bottom:1.5vh;">
+          <div style="background:rgba(255,255,255,.08);border-radius:10px;padding:.8vh 1vw;">
+            <p style="font-size:clamp(9px,.85vw,11px);color:var(--gold);letter-spacing:.15em;text-transform:uppercase;">STARTER</p>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.2vw,32px);font-weight:600;color:white;">$20<span style="font-size:clamp(11px,1.1vw,14px);font-family:'Outfit',sans-serif;color:rgba(255,255,255,.5);">/mes</span></p>
+            <p style="font-size:clamp(9px,.85vw,12px);color:rgba(255,255,255,.5);">Periodistas y creadores</p>
+          </div>
+          <div style="background:rgba(255,255,255,.08);border-radius:10px;padding:.8vh 1vw;">
+            <p style="font-size:clamp(9px,.85vw,11px);color:var(--gold);letter-spacing:.15em;text-transform:uppercase;">PRO</p>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.2vw,32px);font-weight:600;color:white;">$69<span style="font-size:clamp(11px,1.1vw,14px);font-family:'Outfit',sans-serif;color:rgba(255,255,255,.5);">/mes</span></p>
+            <p style="font-size:clamp(9px,.85vw,12px);color:rgba(255,255,255,.5);">Redacciones y equipos</p>
+          </div>
+          <div style="background:rgba(255,255,255,.08);border-radius:10px;padding:.8vh 1vw;">
+            <p style="font-size:clamp(9px,.85vw,11px);color:var(--gold);letter-spacing:.15em;text-transform:uppercase;">ENTERPRISE</p>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.2vw,32px);font-weight:600;color:white;">$299+<span style="font-size:clamp(11px,1.1vw,14px);font-family:'Outfit',sans-serif;color:rgba(255,255,255,.5);">/mes</span></p>
+            <p style="font-size:clamp(9px,.85vw,12px);color:rgba(255,255,255,.5);">Editoriales grandes</p>
+          </div>
+          <div style="background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:10px;padding:.8vh 1vw;">
+            <p style="font-size:clamp(9px,.85vw,11px);color:var(--gold);letter-spacing:.15em;text-transform:uppercase;">Ticket prom. 2027</p>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.2vw,32px);font-weight:600;color:var(--gold-l);">$38<span style="font-size:clamp(11px,1.1vw,14px);font-family:'Outfit',sans-serif;color:rgba(201,168,76,.6);">/mes</span></p>
+            <p style="font-size:clamp(9px,.85vw,12px);color:rgba(255,255,255,.5);">Mix real de planes</p>
+          </div>
+        </div>
+        <p style="font-size:clamp(10px,1vw,13px);color:rgba(255,255,255,.5);border-top:1px solid rgba(255,255,255,.1);padding-top:1vh;">6 verticales en fases: V1 Period&iacute;stica activa &middot; V2 Financiero 2031 &middot; V3 Legal 2033 &middot; V4 Health (Antonella) 2037 &middot; V5 Electoral 2037 &middot; V6 Corporativo 2040</p>
+      </div>
+      <!-- SENDA -->
+      <div style="background:var(--teal);border-radius:14px;padding:clamp(18px,2vh,28px) clamp(20px,2vw,32px);">
+        <span style="font-size:clamp(9px,.9vw,12px);font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:#80E8D8;margin-bottom:.8vh;display:block;">B2C &middot; App &middot; Lanza 2028</span>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3vw,44px);font-weight:600;color:white;margin-bottom:1vh;">SENDA</h3>
+        <p style="font-size:clamp(12px,1.2vw,16px);color:rgba(255,255,255,.65);margin-bottom:1.5vh;line-height:1.6;">App de seguridad y bienestar familiar para latinoamericanos. Familias con hijos, colegios y en el futuro hospitales con Antonella.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1vw;margin-bottom:1.5vh;">
+          <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:.8vh 1vw;">
+            <p style="font-size:clamp(9px,.85vw,11px);color:#80E8D8;letter-spacing:.15em;text-transform:uppercase;">Consumer LATAM</p>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.2vw,32px);font-weight:600;color:white;">$3.99<span style="font-size:clamp(11px,1.1vw,14px);font-family:'Outfit',sans-serif;color:rgba(255,255,255,.5);">/mes</span></p>
+            <p style="font-size:clamp(9px,.85vw,12px);color:rgba(255,255,255,.5);">M&eacute;xico, Colombia, Bolivia</p>
+          </div>
+          <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:.8vh 1vw;">
+            <p style="font-size:clamp(9px,.85vw,11px);color:#80E8D8;letter-spacing:.15em;text-transform:uppercase;">Consumer EE.UU.</p>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.2vw,32px);font-weight:600;color:white;">$7.99<span style="font-size:clamp(11px,1.1vw,14px);font-family:'Outfit',sans-serif;color:rgba(255,255,255,.5);">/mes</span></p>
+            <p style="font-size:clamp(9px,.85vw,12px);color:rgba(255,255,255,.5);">Hispanos en EE.UU.</p>
+          </div>
+          <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:.8vh 1vw;">
+            <p style="font-size:clamp(9px,.85vw,11px);color:#80E8D8;letter-spacing:.15em;text-transform:uppercase;">SENDA Schools</p>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.2vw,32px);font-weight:600;color:white;">$49<span style="font-size:clamp(11px,1.1vw,14px);font-family:'Outfit',sans-serif;color:rgba(255,255,255,.5);">/mes</span></p>
+            <p style="font-size:clamp(9px,.85vw,12px);color:rgba(255,255,255,.5);">Colegios privados LATAM</p>
+          </div>
+          <div style="background:rgba(255,255,255,.15);border:1px solid rgba(128,232,216,.3);border-radius:10px;padding:.8vh 1vw;">
+            <p style="font-size:clamp(9px,.85vw,11px);color:#80E8D8;letter-spacing:.15em;text-transform:uppercase;">SENDA Health</p>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.2vw,32px);font-weight:600;color:white;">$250<span style="font-size:clamp(11px,1.1vw,14px);font-family:'Outfit',sans-serif;color:rgba(255,255,255,.5);">/mes</span></p>
+            <p style="font-size:clamp(9px,.85vw,12px);color:rgba(255,255,255,.5);">Hospitales &mdash; desde 2038</p>
+          </div>
+        </div>
+        <p style="font-size:clamp(10px,1vw,13px);color:rgba(255,255,255,.5);border-top:1px solid rgba(255,255,255,.1);padding-top:1vh;">4 segmentos en fases: Consumer LATAM &rarr; EE.UU. &rarr; Schools &rarr; Health institucional con Antonella (2038)</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S2: EL UNIVERSO ===== -->
+<div class="slide" id="s2" style="background:#0F2538;">
+  <div class="slide-inner">
+    <span class="eyebrow" style="color:var(--gold);">Tama&ntilde;o del mercado</span>
+    <h2 class="display" style="font-size:clamp(28px,3.5vw,52px);font-weight:300;color:white;margin-bottom:2vh;">El universo que vamos a capturar.<br><em>Menos del 1% es suficiente.</em></h2>
+    <div class="two-col" style="align-items:start;">
+      <div>
+        <p style="font-size:clamp(11px,1.1vw,14px);font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:var(--gold);margin-bottom:1.2vh;">VERAXIS ONE</p>
+        <table style="width:100%;border-collapse:collapse;font-size:clamp(11px,1.15vw,15px);">
+          <tr><th style="background:#2E5C8A;color:white;padding:.7vh 1vw;text-align:left;">Pa&iacute;s</th><th style="background:#2E5C8A;color:white;padding:.7vh 1vw;">Universo 2027</th><th style="background:#2E5C8A;color:white;padding:.7vh 1vw;">Mkt Obj (6%)</th><th style="background:#2E5C8A;color:white;padding:.7vh 1vw;">Clientes a&ntilde;o 3</th></tr>
+          <tr style="background:rgba(255,255,255,.08);"><td style="padding:.6vh 1vw;color:white;border-bottom:1px solid rgba(255,255,255,.1);">M&eacute;xico</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.1);">85,000</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.1);">5,100</td><td style="padding:.6vh 1vw;color:var(--gold-l);font-weight:600;border-bottom:1px solid rgba(255,255,255,.1);">61</td></tr>
+          <tr style="background:rgba(255,255,255,.04);"><td style="padding:.6vh 1vw;color:rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.08);">Colombia</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">38,000</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">2,280</td><td style="padding:.6vh 1vw;color:var(--gold-l);font-weight:600;border-bottom:1px solid rgba(255,255,255,.08);">27</td></tr>
+          <tr style="background:rgba(255,255,255,.08);"><td style="padding:.6vh 1vw;color:white;border-bottom:1px solid rgba(255,255,255,.1);">Argentina</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.1);">47,000</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.1);">2,820</td><td style="padding:.6vh 1vw;color:var(--gold-l);font-weight:600;border-bottom:1px solid rgba(255,255,255,.1);">34</td></tr>
+          <tr style="background:rgba(255,255,255,.04);"><td style="padding:.6vh 1vw;color:rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.08);">Venezuela + Bolivia</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">24,000</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">1,440</td><td style="padding:.6vh 1vw;color:var(--gold-l);font-weight:600;border-bottom:1px solid rgba(255,255,255,.08);">14</td></tr>
+          <tr style="background:rgba(255,255,255,.08);"><td style="padding:.6vh 1vw;color:white;border-bottom:1px solid rgba(255,255,255,.1);">EE.UU. + Otros</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.1);">260,000</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.1);">15,600</td><td style="padding:.6vh 1vw;color:var(--gold-l);font-weight:600;border-bottom:1px solid rgba(255,255,255,.1);">71</td></tr>
+          <tr style="background:rgba(201,168,76,.2);"><td style="padding:.6vh 1vw;color:white;font-weight:700;">TOTAL</td><td style="padding:.6vh 1vw;color:white;font-weight:700;">454,000</td><td style="padding:.6vh 1vw;color:white;font-weight:700;">27,240</td><td style="padding:.6vh 1vw;color:var(--gold-l);font-weight:700;">221 clientes</td></tr>
+        </table>
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:1.2vh 1.5vw;margin-top:1.5vh;">
+          <p style="color:var(--gold-l);font-size:clamp(11px,1.1vw,15px);font-weight:600;">En 2043: 11,371 clientes = 0.27% del universo &middot; 4.5% del mercado objetivo</p>
+          <p style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);margin-top:.4vh;">Universo crece 14%/a&ntilde;o. Capturamos menos del 1%. Sin saturaci&oacute;n posible.</p>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:clamp(11px,1.1vw,14px);font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:var(--gold);margin-bottom:1.2vh;">SENDA</p>
+        <table style="width:100%;border-collapse:collapse;font-size:clamp(11px,1.15vw,15px);">
+          <tr><th style="background:var(--teal);color:white;padding:.7vh 1vw;text-align:left;">Segmento</th><th style="background:var(--teal);color:white;padding:.7vh 1vw;">Universo 2028</th><th style="background:var(--teal);color:white;padding:.7vh 1vw;">Mkt Obj (3%)</th><th style="background:var(--teal);color:white;padding:.7vh 1vw;">Familias a&ntilde;o 1</th></tr>
+          <tr style="background:rgba(255,255,255,.08);"><td style="padding:.6vh 1vw;color:white;border-bottom:1px solid rgba(255,255,255,.1);">Consumer LATAM</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.1);">20.4M</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.1);">612,000</td><td style="padding:.6vh 1vw;color:#80E8D8;font-weight:600;border-bottom:1px solid rgba(255,255,255,.1);">82</td></tr>
+          <tr style="background:rgba(255,255,255,.04);"><td style="padding:.6vh 1vw;color:rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.08);">Consumer EE.UU.</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">12M</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">360,000</td><td style="padding:.6vh 1vw;color:#80E8D8;font-weight:600;border-bottom:1px solid rgba(255,255,255,.08);">16</td></tr>
+          <tr style="background:rgba(255,255,255,.08);"><td style="padding:.6vh 1vw;color:white;border-bottom:1px solid rgba(255,255,255,.1);">Schools LATAM</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.1);">180,000</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.1);">5,400</td><td style="padding:.6vh 1vw;color:#80E8D8;font-weight:600;border-bottom:1px solid rgba(255,255,255,.1);">5</td></tr>
+          <tr style="background:rgba(255,255,255,.04);"><td style="padding:.6vh 1vw;color:rgba(255,255,255,.85);">Health (desde 2038)</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.7);">220,000</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.7);">6,600</td><td style="padding:.6vh 1vw;color:#80E8D8;font-weight:600;">0 (2038)</td></tr>
+          <tr style="background:rgba(14,92,80,.4);"><td style="padding:.6vh 1vw;color:white;font-weight:700;">TOTAL</td><td style="padding:.6vh 1vw;color:white;font-weight:700;">36.2M</td><td style="padding:.6vh 1vw;color:white;font-weight:700;">1,086,000</td><td style="padding:.6vh 1vw;color:#80E8D8;font-weight:700;">108 familias</td></tr>
+        </table>
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(14,92,80,.4);border-radius:10px;padding:1.2vh 1.5vw;margin-top:1.5vh;">
+          <p style="color:#80E8D8;font-size:clamp(11px,1.1vw,15px);font-weight:600;">En 2043: 31,693 familias = 0.09% del universo &middot; 0.92% del mkt objetivo</p>
+          <p style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);margin-top:.4vh;">Life360 y Google Family Link son gratis. Capturamos solo las familias que quieren algo mejor.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S3: PROYECCION V1 ===== -->
+<div class="slide" id="s3" style="background:var(--warm);">
+  <div class="slide-inner">
+    <span class="eyebrow">Proyecci&oacute;n a&ntilde;o por a&ntilde;o</span>
+    <h2 class="display" style="font-size:clamp(28px,3.5vw,52px);font-weight:400;color:var(--navy);margin-bottom:2vh;">VERAXIS ONE &mdash; 2027 a 2043.</h2>
+    <div class="two-col" style="align-items:start;">
+      <div>
+        <table class="tbl" style="font-size:clamp(11px,1.15vw,15px);">
+          <tr><th>A&ntilde;o</th><th>Clientes</th><th>Mix planes</th><th>Ticket</th><th>MRR/mes</th><th>ARR/a&ntilde;o</th><th>Churn</th></tr>
+          <tr><td>2027 &mdash; A&ntilde;o 1</td><td>31</td><td>82%S/14%P/4%E</td><td>$38</td><td>$1,178</td><td>$14,136</td><td>20%</td></tr>
+          <tr><td>2028 &mdash; A&ntilde;o 2</td><td>99</td><td>80%/15%/5%</td><td>$41</td><td>$4,059</td><td>$48,708</td><td>20%</td></tr>
+          <tr><td>2029 &mdash; A&ntilde;o 3</td><td>221</td><td>78%/17%/5%</td><td>$42</td><td>$9,282</td><td>$111,384</td><td>20%</td></tr>
+          <tr><td>2031 &mdash; A&ntilde;o 5</td><td>681</td><td>72%/22%/6%</td><td>$48</td><td>$32,688</td><td>$392,256</td><td>16%</td></tr>
+          <tr><td>2033 &mdash; A&ntilde;o 7</td><td>1,431</td><td>65%/27%/8%</td><td>$56</td><td>$80,136</td><td>$961,632</td><td>16%</td></tr>
+          <tr><td>2035 &mdash; A&ntilde;o 9</td><td>2,568</td><td>60%/30%/10%</td><td>$63</td><td>$161,784</td><td>$1,941,408</td><td>13%</td></tr>
+          <tr style="background:var(--lg);font-weight:600;"><td><strong>2037 &mdash; Antonella</strong></td><td><strong>4,029</strong></td><td><strong>55%/32%/13%</strong></td><td><strong>$72</strong></td><td><strong>$290,088</strong></td><td><strong>$3,481,056</strong></td><td><strong>13%</strong></td></tr>
+          <tr><td>2040 &mdash; A&ntilde;o 14</td><td>7,163</td><td>48%/34%/18%</td><td>$87</td><td>$623,181</td><td>$7,478,172</td><td>10%</td></tr>
+          <tr style="background:var(--lgo);font-weight:700;"><td><strong>2043 &mdash; A&ntilde;o 17</strong></td><td><strong>11,371</strong></td><td><strong>45%/34%/21%</strong></td><td><strong>$95</strong></td><td><strong>$1,080,245</strong></td><td><strong>$12,962,940</strong></td><td><strong>10%</strong></td></tr>
+        </table>
+        <div class="nota" style="margin-top:1.2vh;">
+          <strong>Factores de riesgo incorporados:</strong> competencia de Google/OpenAI/Perplexity &middot; churn B2B real del 20% en a&ntilde;os 1&ndash;4 &middot; adopci&oacute;n lenta LATAM &middot; inflaci&oacute;n &middot; competidores que copian el modelo desde 2030 &middot; mercado objetivo = 6% del universo (no 10%). El ticket sube gradualmente porque las verticales m&aacute;s caras van sumando peso en el mix.
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.5vh;">
+        <!-- Impacto Antonella en VERAXIS ONE Health -->
+        <div style="background:var(--purple);border-radius:14px;padding:1.5vh 1.5vw;">
+          <p style="font-size:clamp(9px,.9vw,12px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#C888E8;margin-bottom:.6vh;">Antonella &mdash; El multiplicador de VERAXIS ONE</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8vw;margin-bottom:1vh;">
+            <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:.8vh 1vw;text-align:center;">
+              <p style="font-size:clamp(9px,.85vw,11px);color:rgba(255,255,255,.5);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.3vh;">SIN ANTONELLA</p>
+              <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.2vw,28px);font-weight:600;color:rgba(255,255,255,.55);">$358K&ndash;$583K</p>
+              <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.4);">MRR/mes en 2043</p>
+            </div>
+            <div style="background:var(--gold);border-radius:10px;padding:.8vh 1vw;text-align:center;">
+              <p style="font-size:clamp(9px,.85vw,11px);color:var(--navy);font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.3vh;">CON ANTONELLA</p>
+              <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.2vw,28px);font-weight:600;color:var(--navy);">$1,080,245</p>
+              <p style="font-size:clamp(10px,.95vw,13px);color:var(--navy);font-weight:600;">MRR/mes en 2043</p>
+            </div>
+          </div>
+          <p style="font-size:clamp(11px,1.1vw,14px);color:rgba(255,255,255,.75);line-height:1.6;">Sin su credencial m&eacute;dica, VERAXIS ONE llega a los m&eacute;dicos solo como plataforma gen&eacute;rica. Con su credencial, VERAXIS ONE se convierte en <strong style="color:#C888E8;">herramienta de verificaci&oacute;n cl&iacute;nica certificada</strong> que los grandes players de IA no pueden replicar sin respaldo m&eacute;dico real.</p>
+        </div>
+        <!-- Ticket evolution -->
+        <div style="background:white;border-radius:12px;padding:1.2vh 1.5vw;border-left:4px solid var(--navy);">
+          <p style="font-size:clamp(12px,1.2vw,16px);font-weight:700;color:var(--navy);margin-bottom:.5vh;">Por qu&eacute; el ticket sube de $38 a $95</p>
+          <p style="font-size:clamp(11px,1.1vw,14px);color:var(--text);line-height:1.6;">
+            <strong style="color:var(--navy);">2027&ndash;2030:</strong> Solo Vertical 1. Mix domina Starter $20.<br>
+            <strong style="color:var(--navy);">2031&ndash;2032:</strong> Financiero ($69&ndash;$299) suma peso al mix.<br>
+            <strong style="color:var(--navy);">2033&ndash;2034:</strong> Legal suma. Pro y Enterprise crecen.<br>
+            <strong style="color:var(--purple);font-weight:700;">2037+:</strong> Antonella activa Health. Ticket salta a $72.<br>
+            <strong style="color:var(--orange);font-weight:700;">2043:</strong> 21% Enterprise en el mix. Ticket $95.
+          </p>
+        </div>
+        <!-- Estructura Antonella -->
+        <div style="background:var(--lp);border-radius:12px;padding:1.2vh 1.5vw;">
+          <p style="font-size:clamp(12px,1.2vw,16px);font-weight:700;color:var(--purple);margin-bottom:.8vh;">Estructura accionaria &mdash; Antonella en VERAXIS ONE</p>
+          <table style="width:100%;border-collapse:collapse;font-size:clamp(11px,1.1vw,14px);">
+            <tr><th style="background:var(--purple);color:white;padding:.5vh .8vw;text-align:left;">Entidad</th><th style="background:var(--purple);color:white;padding:.5vh .8vw;">Antonella</th><th style="background:var(--purple);color:white;padding:.5vh .8vw;">Dividendos 2043 (Esc. C)</th></tr>
+            <tr style="background:white;"><td style="padding:.5vh .8vw;color:var(--navy);font-weight:600;border-bottom:1px solid var(--lp);">VERAXIS ONE LLC</td><td style="padding:.5vh .8vw;color:var(--purple);font-weight:700;border-bottom:1px solid var(--lp);">5% directo</td><td style="padding:.5vh .8vw;color:var(--purple);font-weight:700;border-bottom:1px solid var(--lp);">$129,629/a&ntilde;o</td></tr>
+            <tr style="background:white;"><td style="padding:.5vh .8vw;color:var(--muted);">Holding LLC</td><td style="padding:.5vh .8vw;color:var(--muted);">No aplica</td><td style="padding:.5vh .8vw;color:var(--muted);">Carlos 60% / Esposa 40%</td></tr>
+          </table>
+          <p style="font-size:clamp(10px,.95vw,13px);color:var(--muted);margin-top:.6vh;font-style:italic;">Activo personal Antonella 2043: $5.4M&ndash;$9.9M (5% × valor VERAXIS ONE)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S4: PROYECCION SENDA ===== -->
+<div class="slide" id="s4" style="background:var(--warm);">
+  <div class="slide-inner">
+    <span class="eyebrow">Proyecci&oacute;n a&ntilde;o por a&ntilde;o</span>
+    <h2 class="display" style="font-size:clamp(28px,3.5vw,52px);font-weight:400;color:var(--navy);margin-bottom:2vh;">SENDA &mdash; 2028 a 2043.<br><em>El ticket explota cuando Antonella entra.</em></h2>
+    <div class="two-col" style="align-items:start;">
+      <div>
+        <table class="tbl tbl-green" style="font-size:clamp(11px,1.15vw,15px);">
+          <tr><th>A&ntilde;o</th><th>Familias</th><th>Ticket prom.</th><th>MRR/mes</th><th>ARR/a&ntilde;o</th><th>Segmento</th></tr>
+          <tr><td>2028</td><td>108</td><td>$5.21</td><td>$563</td><td>$6,756</td><td>Consumer LATAM 90%</td></tr>
+          <tr><td>2029</td><td>293</td><td>$5.21</td><td>$1,527</td><td>$18,324</td><td>Consumer LATAM 85%</td></tr>
+          <tr><td>2031</td><td>1,368</td><td>$8.07</td><td>$11,040</td><td>$132,480</td><td>+ Schools primeros</td></tr>
+          <tr><td>2033</td><td>3,510</td><td>$11.34</td><td>$39,803</td><td>$477,636</td><td>Consumer + Schools</td></tr>
+          <tr><td>2035</td><td>6,328</td><td>$17.61</td><td>$111,436</td><td>$1,337,232</td><td>3 segmentos activos</td></tr>
+          <tr style="background:var(--lg);font-weight:600;"><td><strong>2037 &mdash; Antonella</strong></td><td><strong>9,986</strong></td><td><strong>$17.61</strong></td><td><strong>$175,853</strong></td><td><strong>$2,110,236</strong></td><td>Health en piloto</td></tr>
+          <tr><td>2038 &mdash; Health activo</td><td>14,000</td><td>$28.00</td><td>$392,000</td><td>$4,704,000</td><td>Health genera MRR</td></tr>
+          <tr><td>2040</td><td>20,510</td><td>$42.21</td><td>$865,727</td><td>$10,388,724</td><td>Health &gt;40% del MRR</td></tr>
+          <tr style="background:var(--lgo);font-weight:700;"><td><strong>2043 &mdash; Madurez</strong></td><td><strong>31,693</strong></td><td><strong>$56.52</strong></td><td><strong>$1,791,288</strong></td><td><strong>$21,495,456</strong></td><td>4 segmentos maduros</td></tr>
+        </table>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.5vh;">
+        <!-- Impacto de Antonella en SENDA — mismo estilo que S_ANT -->
+        <div style="background:var(--purple);border-radius:14px;padding:1.5vh 1.5vw;">
+          <p style="font-size:clamp(9px,.9vw,12px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#C888E8;margin-bottom:.6vh;">Antonella &mdash; El multiplicador de SENDA</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8vw;margin-bottom:1vh;">
+            <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:.8vh 1vw;text-align:center;">
+              <p style="font-size:clamp(9px,.85vw,11px);color:rgba(255,255,255,.5);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.3vh;">SENDA SIN ANTONELLA</p>
+              <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.2vw,28px);font-weight:600;color:rgba(255,255,255,.55);">$200K&ndash;$400K</p>
+              <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.4);">MRR/mes en 2043</p>
+            </div>
+            <div style="background:var(--gold);border-radius:10px;padding:.8vh 1vw;text-align:center;">
+              <p style="font-size:clamp(9px,.85vw,11px);color:var(--navy);font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.3vh;">CON ANTONELLA</p>
+              <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.2vw,28px);font-weight:600;color:var(--navy);">$1,791,288</p>
+              <p style="font-size:clamp(10px,.95vw,13px);color:var(--navy);font-weight:600;">MRR/mes en 2043</p>
+            </div>
+          </div>
+          <p style="font-size:clamp(11px,1.1vw,14px);color:rgba(255,255,255,.75);line-height:1.6;">Sin su credencial m&eacute;dica, SENDA es una app consumer con churn alto compitiendo contra Life360 gratis. Con su credencial, SENDA se convierte en <strong style="color:#C888E8;">infraestructura de salud familiar</strong> con contratos institucionales de $250/mes que los grandes players no pueden replicar.</p>
+        </div>
+        <div style="background:white;border-radius:12px;padding:1.2vh 1.5vw;border-left:4px solid var(--teal);">
+          <p style="font-size:clamp(12px,1.2vw,16px);font-weight:700;color:var(--teal);margin-bottom:.5vh;">Por qu&eacute; el ticket sube de $5.21 a $56.52</p>
+          <p style="font-size:clamp(11px,1.1vw,14px);color:var(--text);line-height:1.6;">
+            <strong style="color:var(--navy);">2028&ndash;2030:</strong> Solo consumer LATAM. Ticket plano $5.21.<br>
+            <strong style="color:var(--navy);">2031&ndash;2034:</strong> Schools ($49/mes) suma peso al promedio.<br>
+            <strong style="color:var(--navy);">2037&ndash;2038:</strong> Antonella activa Health institucional ($250/mes).<br>
+            <strong style="color:var(--teal);font-weight:700;">2043:</strong> Health representa el 55% del MRR. Ticket $56.52.
+          </p>
+        </div>
+        <div style="background:var(--lg);border-radius:12px;padding:1.2vh 1.5vw;border-left:4px solid var(--green);">
+          <p style="font-size:clamp(12px,1.2vw,16px);font-weight:700;color:var(--green);margin-bottom:.4vh;">Riesgo principal &mdash; honestos</p>
+          <p style="font-size:clamp(11px,1.1vw,14px);color:var(--text);line-height:1.6;">Churn consumer: 35% a&ntilde;os 1&ndash;3. Life360 y Google Family Link son gratis. SENDA gana si el componente de salud es real. Si Antonella llega 2 a&ntilde;os tarde, el MRR 2043 baja ~30%.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S5: COMBINADO + HITOS ===== -->
+<div class="slide" id="s5" style="background:var(--warm);">
+  <div class="slide-inner">
+    <span class="eyebrow">Modelo combinado definitivo</span>
+    <h2 class="display" style="font-size:clamp(28px,3.5vw,52px);font-weight:400;color:var(--navy);margin-bottom:2.5vh;">VERAXIS ONE + SENDA &mdash; MRR total.</h2>
+    <div class="two-col" style="align-items:start;">
+      <div>
+        <table class="tbl">
+          <tr><th>A&ntilde;o</th><th>Cl. V1</th><th>Fam. SENDA</th><th>MRR V1</th><th>MRR SENDA</th><th>MRR TOTAL</th></tr>
+          <tr style="background:rgba(139,0,0,.12);"><td>2027 <span style="font-size:10px;color:#ff6666;">&nbsp;&#9888;&nbsp;Fase inversi&oacute;n &mdash; div. $0</span></td><td>31</td><td>&mdash;</td><td>$1,178</td><td>$0</td><td>$1,178</td></tr>
+          <tr style="background:rgba(139,0,0,.12);"><td>2028 <span style="font-size:10px;color:#ff6666;">&nbsp;&#9888;&nbsp;Fase inversi&oacute;n &mdash; div. $0</span></td><td>99</td><td>108</td><td>$4,059</td><td>$563</td><td>$4,622</td></tr>
+          <tr style="background:rgba(139,0,0,.12);"><td>2029 <span style="font-size:10px;color:#ff6666;">&nbsp;&#9888;&nbsp;Fase inversi&oacute;n &mdash; div. $0</span></td><td>221</td><td>293</td><td>$9,282</td><td>$1,527</td><td>$10,809</td></tr>
+          <tr style="background:rgba(125,60,0,.15);"><td>2031 <span style="font-size:10px;color:#FFB347;">&nbsp;&#9888;&nbsp;Breakeven &mdash; div. m&iacute;nimos</span></td><td>681</td><td>1,368</td><td>$32,688</td><td>$11,040</td><td>$43,728</td></tr>
+          <tr style="background:rgba(26,92,53,.2);font-weight:600;"><td><strong>2032 &mdash; Primer a&ntilde;o rentable &#10003;</strong></td><td><strong>1,016</strong></td><td><strong>2,200</strong></td><td><strong>$52,832</strong></td><td><strong>$20,900</strong></td><td><strong>$73,732</strong></td></tr>
+          <tr><td>2033</td><td>1,431</td><td>3,510</td><td>$80,136</td><td>$39,803</td><td>$119,939</td></tr>
+          <tr><td>2035</td><td>2,568</td><td>6,328</td><td>$161,784</td><td>$111,436</td><td>$273,220</td></tr>
+          <tr style="background:var(--lg);"><td><strong>2037 &mdash; Antonella entra</strong></td><td><strong>4,029</strong></td><td><strong>9,986</strong></td><td><strong>$290,088</strong></td><td><strong>$175,853</strong></td><td><strong>$465,941</strong></td></tr>
+          <tr><td>2040</td><td>7,163</td><td>20,510</td><td>$623,181</td><td>$865,727</td><td>$1,488,908</td></tr>
+          <tr style="background:var(--lgo);"><td><strong>2043 &mdash; N&uacute;mero final</strong></td><td><strong>11,371</strong></td><td><strong>31,693</strong></td><td><strong>$1,080,245</strong></td><td><strong>$1,791,288</strong></td><td><strong>$2,871,533</strong></td></tr>
+        </table>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.2vh;">
+        <p style="font-size:clamp(11px,1.1vw,14px);font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--navy);">Hitos combinados V1 + SENDA</p>
+        <table style="width:100%;border-collapse:collapse;font-size:clamp(11px,1.15vw,15px);">
+          <tr style="background:var(--lb);"><td style="padding:.6vh 1vw;font-weight:600;color:var(--navy);">$1K MRR</td><td style="padding:.6vh 1vw;color:var(--navy);">2027 &mdash; A&ntilde;o 1 &mdash; Se&ntilde;al de vida</td></tr>
+          <tr><td style="padding:.6vh 1vw;font-weight:600;color:var(--navy);">$10K MRR</td><td style="padding:.6vh 1vw;color:var(--text);">2029 &mdash; A&ntilde;o 3 &mdash; Validaci&oacute;n real</td></tr>
+          <tr style="background:var(--lb);"><td style="padding:.6vh 1vw;font-weight:600;color:var(--navy);">$25K MRR</td><td style="padding:.6vh 1vw;color:var(--navy);">2031 &mdash; A&ntilde;o 5 &mdash; Motor encendido</td></tr>
+          <tr style="background:var(--lb);"><td style="padding:.6vh 1vw;font-weight:700;color:var(--green);">$50K MRR</td><td style="padding:.6vh 1vw;font-weight:700;color:var(--green);">2032 &mdash; A&ntilde;o 6 &mdash; Rentabilidad real &#10003;</td></tr>
+          <tr><td style="padding:.6vh 1vw;font-weight:600;color:var(--navy);">$100K MRR</td><td style="padding:.6vh 1vw;color:var(--text);">2033 &mdash; A&ntilde;o 7 &mdash; Escala real</td></tr>
+          <tr style="background:var(--lb);"><td style="padding:.6vh 1vw;font-weight:600;color:var(--navy);">$250K MRR</td><td style="padding:.6vh 1vw;color:var(--navy);">2035 &mdash; A&ntilde;o 9</td></tr>
+          <tr><td style="padding:.6vh 1vw;font-weight:600;color:var(--navy);">$500K MRR</td><td style="padding:.6vh 1vw;color:var(--text);">2038 &mdash; A&ntilde;o 12 &mdash; Health suma</td></tr>
+          <tr style="background:var(--lg);"><td style="padding:.6vh 1vw;font-weight:600;color:var(--green);">$1M MRR</td><td style="padding:.6vh 1vw;font-weight:600;color:var(--green);">2039 &mdash; A&ntilde;o 13 &mdash; Empresa madura</td></tr>
+          <tr style="background:var(--lgo);"><td style="padding:.6vh 1vw;font-weight:700;color:var(--orange);">$2.87M MRR</td><td style="padding:.6vh 1vw;font-weight:700;color:var(--orange);">2043 &mdash; N&uacute;mero final</td></tr>
+        </table>
+        <div style="background:white;border-radius:12px;padding:1.1vh 1.3vw;border-left:4px solid var(--navy);margin-top:1.2vh;">
+          <p style="font-size:clamp(12px,1.2vw,16px);font-weight:700;color:var(--navy);margin-bottom:.5vh;">Lo importante: el n&uacute;mero final NO es uno solo</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6vw;">
+            <div style="background:var(--lg);border-radius:8px;padding:.8vh .8vw;">
+              <p style="font-size:clamp(9px,.9vw,12px);letter-spacing:.12em;text-transform:uppercase;color:var(--green);font-weight:700;">Base</p>
+              <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(17px,1.9vw,26px);color:var(--green);font-weight:600;">$2.87M</p>
+              <p style="font-size:clamp(9px,.85vw,12px);color:var(--muted);">MRR 2043</p>
+            </div>
+            <div style="background:var(--ly);border-radius:8px;padding:.8vh .8vw;">
+              <p style="font-size:clamp(9px,.9vw,12px);letter-spacing:.12em;text-transform:uppercase;color:var(--orange);font-weight:700;">Duro</p>
+              <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(17px,1.9vw,26px);color:var(--orange);font-weight:600;">~$1.72M</p>
+              <p style="font-size:clamp(9px,.85vw,12px);color:var(--muted);">MRR 2043</p>
+            </div>
+            <div style="background:var(--rl);border-radius:8px;padding:.8vh .8vw;">
+              <p style="font-size:clamp(9px,.9vw,12px);letter-spacing:.12em;text-transform:uppercase;color:var(--red);font-weight:700;">Feo</p>
+              <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(17px,1.9vw,26px);color:var(--red);font-weight:600;">~$860K</p>
+              <p style="font-size:clamp(9px,.85vw,12px);color:var(--muted);">MRR 2043</p>
+            </div>
+          </div>
+          <p style="font-size:clamp(10px,.95vw,13px);color:var(--text);line-height:1.55;margin-top:.7vh;">Este plan no asume un solo futuro. Aun con crisis, retrasos y competencia agresiva, el negocio sigue vivo. La diferencia no es si habr&aacute; dificultad; la diferencia es cu&aacute;nto tarda en llegar la libertad.</p>
+        </div>
+        <div style="background:var(--lb);border-radius:12px;padding:1.1vh 1.3vw;margin-top:1vh;">
+          <p style="font-size:clamp(11px,1.1vw,14px);font-weight:700;color:var(--navy);margin-bottom:.4vh;">Lo que exige este plan en la vida real</p>
+          <p style="font-size:clamp(10px,.95vw,13px);color:var(--text);line-height:1.6;">10&ndash;15 a&ntilde;os de ejecuci&oacute;n constante, caja cuidada, ajustes de producto y paciencia. No es una promesa r&aacute;pida; es una construcci&oacute;n disciplinada.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S6: DIVIDENDOS ===== -->
+<div class="slide" id="s6" style="background:#0F2538;">
+  <div class="slide-inner">
+    <span class="eyebrow" style="color:var(--gold);">Lo que llega a la familia</span>
+    <h2 class="display" style="font-size:clamp(28px,3.5vw,52px);font-weight:300;color:white;margin-bottom:2vh;">Dividendos por persona &mdash;<br><em>a&ntilde;o por a&ntilde;o.</em></h2>
+    <div class="two-col" style="align-items:start;">
+      <div>
+        <table style="width:100%;border-collapse:collapse;font-size:clamp(11px,1.15vw,15px);">
+          <tr><th style="background:#2E5C8A;color:white;padding:.7vh 1vw;text-align:left;">A&ntilde;o</th><th style="background:#2E5C8A;color:white;padding:.7vh 1vw;">MRR Total</th><th style="background:#2E5C8A;color:white;padding:.7vh 1vw;">Div. Carlos/a&ntilde;o</th><th style="background:#2E5C8A;color:white;padding:.7vh 1vw;">Div. Carlos/mes</th><th style="background:#2E5C8A;color:white;padding:.7vh 1vw;">Div. Esposa/a&ntilde;o</th><th style="background:#2E5C8A;color:white;padding:.7vh 1vw;">Div. Esposa/mes</th></tr>
+          <tr style="background:rgba(139,0,0,.25);"><td style="padding:.6vh 1vw;color:rgba(255,100,100,.9);border-bottom:1px solid rgba(255,255,255,.08);">2027 &#9888; En inversi&oacute;n</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.6);border-bottom:1px solid rgba(255,255,255,.08);">$1,178</td><td style="padding:.6vh 1vw;color:rgba(255,100,100,.8);border-bottom:1px solid rgba(255,255,255,.08);">$0</td><td style="padding:.6vh 1vw;color:rgba(255,100,100,.8);border-bottom:1px solid rgba(255,255,255,.08);">$0</td><td style="padding:.6vh 1vw;color:rgba(255,100,100,.8);border-bottom:1px solid rgba(255,255,255,.08);">$0</td><td style="padding:.6vh 1vw;color:rgba(255,100,100,.8);border-bottom:1px solid rgba(255,255,255,.08);">$0</td></tr>
+          <tr style="background:rgba(139,0,0,.25);"><td style="padding:.6vh 1vw;color:rgba(255,100,100,.9);border-bottom:1px solid rgba(255,255,255,.08);">2028 &#9888; En inversi&oacute;n</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.6);border-bottom:1px solid rgba(255,255,255,.08);">$4,622</td><td style="padding:.6vh 1vw;color:rgba(255,100,100,.8);border-bottom:1px solid rgba(255,255,255,.08);">$0</td><td style="padding:.6vh 1vw;color:rgba(255,100,100,.8);border-bottom:1px solid rgba(255,255,255,.08);">$0</td><td style="padding:.6vh 1vw;color:rgba(255,100,100,.8);border-bottom:1px solid rgba(255,255,255,.08);">$0</td><td style="padding:.6vh 1vw;color:rgba(255,100,100,.8);border-bottom:1px solid rgba(255,255,255,.08);">$0</td></tr>
+          <tr style="background:rgba(139,0,0,.25);"><td style="padding:.6vh 1vw;color:rgba(255,100,100,.9);border-bottom:1px solid rgba(255,255,255,.08);">2029 &#9888; En inversi&oacute;n</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.6);border-bottom:1px solid rgba(255,255,255,.08);">$10,809</td><td style="padding:.6vh 1vw;color:rgba(255,100,100,.8);border-bottom:1px solid rgba(255,255,255,.08);">$0</td><td style="padding:.6vh 1vw;color:rgba(255,100,100,.8);border-bottom:1px solid rgba(255,255,255,.08);">$0</td><td style="padding:.6vh 1vw;color:rgba(255,100,100,.8);border-bottom:1px solid rgba(255,255,255,.08);">$0</td><td style="padding:.6vh 1vw;color:rgba(255,100,100,.8);border-bottom:1px solid rgba(255,255,255,.08);">$0</td></tr>
+          <tr style="background:rgba(125,60,0,.2);"><td style="padding:.6vh 1vw;color:rgba(255,180,60,.9);border-bottom:1px solid rgba(255,255,255,.08);">2031 &#9888; Breakeven</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">$43,728</td><td style="padding:.6vh 1vw;color:rgba(255,180,60,.8);font-weight:600;border-bottom:1px solid rgba(255,255,255,.08);">$8,849</td><td style="padding:.6vh 1vw;color:rgba(255,180,60,.8);border-bottom:1px solid rgba(255,255,255,.08);">$737</td><td style="padding:.6vh 1vw;color:rgba(255,180,60,.8);border-bottom:1px solid rgba(255,255,255,.08);">$5,899</td><td style="padding:.6vh 1vw;color:rgba(255,180,60,.8);border-bottom:1px solid rgba(255,255,255,.08);">$491</td></tr>
+          <tr style="background:rgba(201,168,76,.15);"><td style="padding:.6vh 1vw;color:white;font-weight:700;">2032</td><td style="padding:.6vh 1vw;color:white;font-weight:700;">$73,732</td><td style="padding:.6vh 1vw;color:var(--gold-l);font-weight:700;">$106,174</td><td style="padding:.6vh 1vw;color:var(--gold-l);font-weight:700;">$8,848</td><td style="padding:.6vh 1vw;color:var(--gold-l);font-weight:700;">$70,783</td><td style="padding:.6vh 1vw;color:var(--gold-l);font-weight:700;">$5,898</td></tr>
+          <tr style="background:rgba(255,255,255,.08);"><td style="padding:.6vh 1vw;color:white;border-bottom:1px solid rgba(255,255,255,.1);">2033</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.1);">$119,939</td><td style="padding:.6vh 1vw;color:var(--gold-l);font-weight:600;border-bottom:1px solid rgba(255,255,255,.1);">$172,712</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.1);">$14,393</td><td style="padding:.6vh 1vw;color:var(--gold-l);border-bottom:1px solid rgba(255,255,255,.1);">$115,141</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.6);border-bottom:1px solid rgba(255,255,255,.1);">$9,595</td></tr>
+          <tr style="background:rgba(255,255,255,.04);"><td style="padding:.6vh 1vw;color:rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.08);">2035</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">$273,220</td><td style="padding:.6vh 1vw;color:var(--gold-l);font-weight:600;border-bottom:1px solid rgba(255,255,255,.08);">$393,437</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">$32,786</td><td style="padding:.6vh 1vw;color:var(--gold-l);border-bottom:1px solid rgba(255,255,255,.08);">$262,291</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.6);border-bottom:1px solid rgba(255,255,255,.08);">$21,857</td></tr>
+          <tr style="background:rgba(26,92,53,.3);"><td style="padding:.6vh 1vw;color:white;font-weight:700;">2037</td><td style="padding:.6vh 1vw;color:white;font-weight:700;">$465,941</td><td style="padding:.6vh 1vw;color:var(--gold-l);font-weight:700;">$670,955</td><td style="padding:.6vh 1vw;color:var(--gold-l);font-weight:700;">$55,913</td><td style="padding:.6vh 1vw;color:var(--gold-l);font-weight:700;">$447,303</td><td style="padding:.6vh 1vw;color:var(--gold-l);font-weight:700;">$37,275</td></tr>
+          <tr style="background:rgba(255,255,255,.08);"><td style="padding:.6vh 1vw;color:white;border-bottom:1px solid rgba(255,255,255,.1);">2040</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.1);">$1,488,908</td><td style="padding:.6vh 1vw;color:var(--gold-l);font-weight:600;border-bottom:1px solid rgba(255,255,255,.1);">$2,144,028</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.1);">$178,669</td><td style="padding:.6vh 1vw;color:var(--gold-l);border-bottom:1px solid rgba(255,255,255,.1);">$1,429,352</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.6);border-bottom:1px solid rgba(255,255,255,.1);">$119,113</td></tr>
+          <tr style="background:rgba(201,168,76,.2);"><td style="padding:.6vh 1vw;color:white;font-weight:700;">2043</td><td style="padding:.6vh 1vw;color:white;font-weight:700;">$2,871,533</td><td style="padding:.6vh 1vw;color:var(--gold-l);font-weight:700;">$4,135,008</td><td style="padding:.6vh 1vw;color:var(--gold-l);font-weight:700;">$344,584</td><td style="padding:.6vh 1vw;color:var(--gold-l);font-weight:700;">$2,756,672</td><td style="padding:.6vh 1vw;color:var(--gold-l);font-weight:700;">$229,722</td></tr>
+        </table>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.5vh;">
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.3);border-radius:12px;padding:1.5vh 1.5vw;">
+          <p style="color:var(--gold);font-weight:700;font-size:clamp(12px,1.2vw,16px);margin-bottom:1vh;">F&oacute;rmula de dividendos</p>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(16px,1.8vw,24px);color:white;line-height:1.6;">ARR &times; 20%<br>&times; % participaci&oacute;n<br>= dividendo anual</p>
+          <p style="color:rgba(255,255,255,.55);font-size:clamp(10px,1vw,13px);margin-top:.8vh;">20% es la porci&oacute;n distribuible &mdash; el 80% restante se reinvierte para crecer.</p>
+        </div>
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.5vh 1.5vw;">
+          <p style="color:rgba(255,255,255,.7);font-weight:700;font-size:clamp(11px,1.1vw,14px);margin-bottom:.8vh;letter-spacing:.1em;text-transform:uppercase;">Participaciones</p>
+          <div style="display:flex;flex-direction:column;gap:.6vh;">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:.6vh 1vw;background:rgba(27,58,92,.5);border-radius:8px;">
+              <span style="color:white;font-size:clamp(12px,1.2vw,15px);">Carlos &mdash; AMJ Holding</span>
+              <span style="color:var(--gold-l);font-weight:700;font-size:clamp(14px,1.5vw,20px);">60%</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:.6vh 1vw;background:rgba(27,58,92,.3);border-radius:8px;">
+              <span style="color:rgba(255,255,255,.85);font-size:clamp(12px,1.2vw,15px);">Esposa &mdash; AMJ Holding</span>
+              <span style="color:var(--gold-l);font-weight:700;font-size:clamp(14px,1.5vw,20px);">40%</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:.6vh 1vw;background:rgba(74,35,90,.3);border-radius:8px;">
+              <span style="color:rgba(255,255,255,.85);font-size:clamp(12px,1.2vw,15px);">Antonella &mdash; VERAXIS ONE</span>
+              <span style="color:#C888E8;font-weight:700;font-size:clamp(14px,1.5vw,20px);">5%</span>
+            </div>
+          </div>
+
+        <div style="background:rgba(139,0,0,.2);border-radius:10px;padding:1.2vh 1.5vw;margin-top:1.5vh;border-left:4px solid var(--red);">
+          <p style="font-size:clamp(11px,1.1vw,14px);color:rgba(255,255,255,.85);line-height:1.6;">
+            <strong style="color:#FF8888;">&#9888; 2027&ndash;2029 &mdash; Fase de inversi&oacute;n:</strong> El negocio a&uacute;n no cubre sus propios costos. Los dividendos son $0 estos a&ntilde;os. Carlos vive del trabajo principal. Esto es normal en cualquier SaaS &mdash; la inversi&oacute;n precede al retorno.<br>
+            <strong style="color:#FFB347;">&#9888; 2030&ndash;2031 &mdash; Breakeven:</strong> El negocio empieza a cubrir sus costos. Dividendos m&iacute;nimos. A&uacute;n no es el momento de depender del negocio.<br>
+            <strong style="color:#4CAF82;">&#10003; 2032 en adelante &mdash; Rentabilidad real:</strong> El negocio cubre todos sus costos y genera utilidad neta. Los dividendos de esta tabla son reales y alcanzables.
+          </p>
+        </div>
+        </div>
+        <div style="background:rgba(74,35,90,.25);border:1px solid rgba(74,35,90,.4);border-radius:12px;padding:1.5vh 1.5vw;">
+          <p style="color:#C888E8;font-weight:700;font-size:clamp(12px,1.2vw,16px);margin-bottom:.5vh;">Antonella 2043</p>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.2vw,32px);color:white;font-weight:600;">$129,629/a&ntilde;o</p>
+          <p style="color:rgba(255,255,255,.55);font-size:clamp(10px,1vw,13px);">5% de VERAXIS ONE &middot; activo desde 2037</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S7: PROFIT FIRST ===== -->
+<div class="slide" id="s7" style="background:var(--warm);">
+  <div class="slide-inner">
+    <span class="eyebrow" style="color:var(--orange);">C&oacute;mo se distribuye cada d&oacute;lar que entra</span>
+    <h2 class="display" style="font-size:clamp(28px,3.5vw,52px);font-weight:400;color:var(--navy);margin-bottom:1vh;">Profit First &mdash; Cada d&oacute;lar<br>tiene un destino fijo.</h2>
+    <p style="font-size:clamp(12px,1.2vw,16px);color:var(--muted);margin-bottom:2vh;font-style:italic;font-weight:500;">La regla m&aacute;s importante: el dinero del negocio y el dinero personal NUNCA se mezclan. Nunca.</p>
+    <div class="two-col" style="align-items:start;">
+      <div style="display:flex;flex-direction:column;gap:1.2vh;">
+        <div style="display:flex;align-items:stretch;border-radius:10px;overflow:hidden;">
+          <div style="background:#C0392B;min-width:clamp(60px,6vw,90px);display:flex;align-items:center;justify-content:center;"><p style="font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.8vw,40px);font-weight:600;color:white;">50%</p></div>
+          <div style="background:white;flex:1;padding:1.1vh 1.5vw;display:flex;justify-content:space-between;align-items:center;">
+            <div><p style="font-size:clamp(13px,1.3vw,17px);font-weight:700;color:var(--navy);">OPERACI&Oacute;N</p><p style="font-size:clamp(11px,1.1vw,14px);color:var(--muted);">Herramientas, tecnolog&iacute;a (LLMs/API), hosting, publicidad, costos del negocio</p></div>
+            <div style="border:2px solid #C0392B;border-radius:8px;padding:0.6vh 1.2vw;min-width:clamp(70px,7vw,100px);text-align:center;"><p style="font-family:'Cormorant Garamond',serif;font-size:clamp(16px,1.8vw,24px);font-weight:600;color:#C0392B;">$5,000</p><p style="font-size:clamp(9px,.85vw,11px);color:var(--muted);">a $10K MRR</p></div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:stretch;border-radius:10px;overflow:hidden;">
+          <div style="background:#7D3C00;min-width:clamp(60px,6vw,90px);display:flex;align-items:center;justify-content:center;"><p style="font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.8vw,40px);font-weight:600;color:white;">20%</p></div>
+          <div style="background:white;flex:1;padding:1.1vh 1.5vw;display:flex;justify-content:space-between;align-items:center;">
+            <div><p style="font-size:clamp(13px,1.3vw,17px);font-weight:700;color:var(--navy);">IMPUESTOS</p><p style="font-size:clamp(11px,1.1vw,14px);color:var(--muted);">Cuenta intocable para pagar al IRS &mdash; nunca hay sorpresas de fin de a&ntilde;o</p></div>
+            <div style="border:2px solid #7D3C00;border-radius:8px;padding:0.6vh 1.2vw;min-width:clamp(70px,7vw,100px);text-align:center;"><p style="font-family:'Cormorant Garamond',serif;font-size:clamp(16px,1.8vw,24px);font-weight:600;color:#7D3C00;">$2,000</p><p style="font-size:clamp(9px,.85vw,11px);color:var(--muted);">a $10K MRR</p></div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:stretch;border-radius:10px;overflow:hidden;">
+          <div style="background:var(--green);min-width:clamp(60px,6vw,90px);display:flex;align-items:center;justify-content:center;"><p style="font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.8vw,40px);font-weight:600;color:white;">15%</p></div>
+          <div style="background:white;flex:1;padding:1.1vh 1.5vw;display:flex;justify-content:space-between;align-items:center;">
+            <div><p style="font-size:clamp(13px,1.3vw,17px);font-weight:700;color:var(--navy);">NUESTRO SUELDO</p><p style="font-size:clamp(11px,1.1vw,14px);color:var(--muted);">Lo que se transfiere al hogar &mdash; fijo, sistem&aacute;tico, el primer d&iacute;a del mes</p></div>
+            <div style="border:2px solid var(--green);border-radius:8px;padding:0.6vh 1.2vw;min-width:clamp(70px,7vw,100px);text-align:center;"><p style="font-family:'Cormorant Garamond',serif;font-size:clamp(16px,1.8vw,24px);font-weight:600;color:var(--green);">$1,500</p><p style="font-size:clamp(9px,.85vw,11px);color:var(--muted);">a $10K MRR</p></div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:stretch;border-radius:10px;overflow:hidden;">
+          <div style="background:var(--gold);min-width:clamp(60px,6vw,90px);display:flex;align-items:center;justify-content:center;"><p style="font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.8vw,40px);font-weight:600;color:var(--navy);">15%</p></div>
+          <div style="background:white;flex:1;padding:1.1vh 1.5vw;display:flex;justify-content:space-between;align-items:center;">
+            <div><p style="font-size:clamp(13px,1.3vw,17px);font-weight:700;color:var(--navy);">CAPITAL E INVERSI&Oacute;N</p><p style="font-size:clamp(11px,1.1vw,14px);color:var(--muted);">S&amp;P500 autom&aacute;tico + Solo 401(k) + reserva para bienes ra&iacute;ces</p></div>
+            <div style="border:2px solid var(--gold);border-radius:8px;padding:0.6vh 1.2vw;min-width:clamp(70px,7vw,100px);text-align:center;"><p style="font-family:'Cormorant Garamond',serif;font-size:clamp(16px,1.8vw,24px);font-weight:600;color:#8B6914;">$1,500</p><p style="font-size:clamp(9px,.85vw,11px);color:var(--muted);">a $10K MRR</p></div>
+          </div>
+        </div>
+        <p style="font-size:clamp(10px,.95vw,13px);color:var(--muted);text-align:center;margin-top:.5vh;">5 cuentas separadas en Mercury Bank &mdash; autom&aacute;tico desde el d&iacute;a 1</p>
+        <div style="background:var(--rl);border-radius:12px;padding:1.1vh 1.3vw;border-left:4px solid #C0392B;">
+          <p style="font-size:clamp(11px,1.1vw,14px);font-weight:700;color:#A93226;margin-bottom:.4vh;">Por qu&eacute; esto importa de verdad</p>
+          <p style="font-size:clamp(10px,.95vw,13px);color:var(--text);line-height:1.6;">Profit First no es decoraci&oacute;n financiera. Es el freno de emergencia para no crecer con ingresos altos y caja rota. Si el negocio exige m&aacute;s equipo o m&aacute;s marketing, el porcentaje de Operaci&oacute;n sube y el sueldo/dividendo se ajusta. Primero sobrevive la empresa; luego celebra la familia.</p>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.2vh;">
+        <div style="background:var(--navy);border-radius:12px;padding:1.5vh 1.5vw;">
+          <p style="font-size:clamp(11px,1.1vw,14px);color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:1.2vh;">C&oacute;mo escala con el MRR</p>
+          <table style="width:100%;font-size:clamp(10px,1vw,13px);border-collapse:collapse;">
+            <tr><th style="background:#2E5C8A;color:white;padding:.6vh .9vw;text-align:left;">MRR mensual</th><th style="background:#2E5C8A;color:white;padding:.6vh .9vw;">Operaci&oacute;n 50%</th><th style="background:#2E5C8A;color:white;padding:.6vh .9vw;">Impuestos 20%</th><th style="background:#2E5C8A;color:white;padding:.6vh .9vw;">Sueldo 15%</th><th style="background:#2E5C8A;color:white;padding:.6vh .9vw;">Capital 15%</th></tr>
+            <tr style="background:rgba(255,255,255,.08);"><td style="padding:.5vh .9vw;color:white;">$1,178</td><td style="padding:.5vh .9vw;color:rgba(255,255,255,.85);">$589</td><td style="padding:.5vh .9vw;color:rgba(255,255,255,.85);">$236</td><td style="padding:.5vh .9vw;color:var(--gold-l);font-weight:600;">$177</td><td style="padding:.5vh .9vw;color:var(--gold-l);font-weight:600;">$177</td></tr>
+            <tr style="background:rgba(255,255,255,.05);"><td style="padding:.5vh .9vw;color:rgba(255,255,255,.85);">$10,809</td><td style="padding:.5vh .9vw;color:rgba(255,255,255,.7);">$5,405</td><td style="padding:.5vh .9vw;color:rgba(255,255,255,.7);">$2,162</td><td style="padding:.5vh .9vw;color:var(--gold-l);font-weight:600;">$1,621</td><td style="padding:.5vh .9vw;color:var(--gold-l);font-weight:600;">$1,621</td></tr>
+            <tr style="background:rgba(255,255,255,.08);"><td style="padding:.5vh .9vw;color:white;">$43,728</td><td style="padding:.5vh .9vw;color:rgba(255,255,255,.85);">$21,864</td><td style="padding:.5vh .9vw;color:rgba(255,255,255,.85);">$8,746</td><td style="padding:.5vh .9vw;color:var(--gold-l);font-weight:600;">$6,559</td><td style="padding:.5vh .9vw;color:var(--gold-l);font-weight:600;">$6,559</td></tr>
+            <tr style="background:rgba(255,255,255,.05);"><td style="padding:.5vh .9vw;color:rgba(255,255,255,.85);">$119,939</td><td style="padding:.5vh .9vw;color:rgba(255,255,255,.7);">$59,970</td><td style="padding:.5vh .9vw;color:rgba(255,255,255,.7);">$23,988</td><td style="padding:.5vh .9vw;color:var(--gold-l);font-weight:600;">$17,991</td><td style="padding:.5vh .9vw;color:var(--gold-l);font-weight:600;">$17,991</td></tr>
+            <tr style="background:rgba(201,168,76,.15);"><td style="padding:.5vh .9vw;color:white;font-weight:700;">$465,941</td><td style="padding:.5vh .9vw;color:white;">$232,971</td><td style="padding:.5vh .9vw;color:white;">$93,188</td><td style="padding:.5vh .9vw;color:var(--gold-l);font-weight:700;">$69,891</td><td style="padding:.5vh .9vw;color:var(--gold-l);font-weight:700;">$69,891</td></tr>
+            <tr style="background:rgba(201,168,76,.2);"><td style="padding:.5vh .9vw;color:white;font-weight:700;">$2,871,533</td><td style="padding:.5vh .9vw;color:white;">$1,435,767</td><td style="padding:.5vh .9vw;color:white;">$574,307</td><td style="padding:.5vh .9vw;color:var(--gold-l);font-weight:700;">$430,730</td><td style="padding:.5vh .9vw;color:var(--gold-l);font-weight:700;">$430,730</td></tr>
+          </table>
+        </div>
+        <div style="background:var(--ly);border-radius:12px;padding:1.5vh 1.5vw;">
+          <p style="font-size:clamp(12px,1.2vw,16px);font-weight:700;color:var(--navy);margin-bottom:1vh;">Las 5 cuentas en Mercury Bank</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8vw;">
+            <div style="background:white;border-radius:8px;padding:.8vh 1vw;border-left:3px solid #C0392B;"><p style="font-size:clamp(10px,.95vw,13px);font-weight:600;color:#C0392B;">Cuenta 1 &mdash; Ingresos</p><p style="font-size:clamp(9px,.85vw,12px);color:var(--muted);">Todos los cobros entran aqu&iacute;. Punto de distribuci&oacute;n.</p></div>
+            <div style="background:white;border-radius:8px;padding:.8vh 1vw;border-left:3px solid #7D3C00;"><p style="font-size:clamp(10px,.95vw,13px);font-weight:600;color:#7D3C00;">Cuenta 2 &mdash; Operaci&oacute;n</p><p style="font-size:clamp(9px,.85vw,12px);color:var(--muted);">50%. Solo gastos del negocio. Nunca mezclar.</p></div>
+            <div style="background:white;border-radius:8px;padding:.8vh 1vw;border-left:3px solid var(--purple);"><p style="font-size:clamp(10px,.95vw,13px);font-weight:600;color:var(--purple);">Cuenta 3 &mdash; Impuestos</p><p style="font-size:clamp(9px,.85vw,12px);color:var(--muted);">20%. Intocable hasta fin de a&ntilde;o fiscal.</p></div>
+            <div style="background:white;border-radius:8px;padding:.8vh 1vw;border-left:3px solid var(--green);"><p style="font-size:clamp(10px,.95vw,13px);font-weight:600;color:var(--green);">Cuenta 4 &mdash; Sueldo</p><p style="font-size:clamp(9px,.85vw,12px);color:var(--muted);">15%. Transferencia fija al hogar el d&iacute;a 1.</p></div>
+          </div>
+          <div style="background:white;border-radius:8px;padding:.8vh 1vw;border-left:3px solid var(--gold);margin-top:.8vh;"><p style="font-size:clamp(10px,.95vw,13px);font-weight:600;color:#8B6914;">Cuenta 5 &mdash; Capital e Inversi&oacute;n</p><p style="font-size:clamp(9px,.85vw,12px);color:var(--muted);">15%. Autom&aacute;tico a S&amp;P500 + 401(k) + reserva bienes ra&iacute;ces.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S8: 5 MOTORES ===== -->
+<div class="slide" id="s8" style="background:#0F2538;">
+  <div class="slide-inner">
+    <span class="eyebrow" style="color:var(--gold);">Sistema de riqueza paralelo al negocio</span>
+    <h2 class="display" style="font-size:clamp(28px,3.5vw,52px);font-weight:300;color:white;margin-bottom:2vh;">5 Motores &mdash; <em>construyen riqueza<br>independientemente de los dividendos.</em></h2>
+    <div class="three-col">
+      <div style="background:rgba(27,107,170,.3);border:1px solid rgba(27,107,170,.4);border-radius:14px;padding:1.5vh 1.5vw;">
+        <span style="font-size:clamp(10px,1vw,13px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#8BB8E8;margin-bottom:.8vh;display:block;">Motor 1</span>
+        <h3 style="font-size:clamp(16px,1.8vw,24px);font-weight:600;color:white;margin-bottom:.6vh;">HYSA</h3>
+        <p style="font-size:clamp(11px,1.1vw,14px);color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:1.2vh;">Cuenta de ahorro de alto rendimiento. 4.5% anual garantizado.</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2vw,28px);color:var(--gold-l);font-weight:600;">$200/mes</p>
+        <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.5);">desde 2029 &middot; Marcus o Ally Bank &middot; Inicia YA</p>
+      </div>
+      <div style="background:rgba(26,92,53,.3);border:1px solid rgba(26,92,53,.5);border-radius:14px;padding:1.5vh 1.5vw;">
+        <span style="font-size:clamp(10px,1vw,13px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#4CAF82;margin-bottom:.8vh;display:block;">Motor 2</span>
+        <h3 style="font-size:clamp(16px,1.8vw,24px);font-weight:600;color:white;margin-bottom:.6vh;">S&amp;P 500 Autom&aacute;tico</h3>
+        <p style="font-size:clamp(11px,1.1vw,14px);color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:1.2vh;">Inversi&oacute;n autom&aacute;tica mensual. Retorno hist&oacute;rico 10.5%/a&ntilde;o.</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2vw,28px);color:var(--gold-l);font-weight:600;">$400/mes</p>
+        <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.5);">desde el primer pago de V1 &middot; set and forget</p>
+      </div>
+      <div style="background:rgba(125,60,0,.3);border:1px solid rgba(125,60,0,.5);border-radius:14px;padding:1.5vh 1.5vw;">
+        <span style="font-size:clamp(10px,1vw,13px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#E8A060;margin-bottom:.8vh;display:block;">Motor 3</span>
+        <h3 style="font-size:clamp(16px,1.8vw,24px);font-weight:600;color:white;margin-bottom:.6vh;">Solo 401(k)</h3>
+        <p style="font-size:clamp(11px,1.1vw,14px);color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:1.2vh;">Hasta $70,000/a&ntilde;o sin pagar impuestos. Plan de retiro para aut&oacute;nomos.</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2vw,28px);color:var(--gold-l);font-weight:600;">$70K/a&ntilde;o</p>
+        <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.5);">m&aacute;x. deducible &middot; activa cuando ARR &gt; $30K</p>
+      </div>
+      <div style="background:rgba(125,90,26,.3);border:1px solid rgba(125,90,26,.4);border-radius:14px;padding:1.5vh 1.5vw;">
+        <span style="font-size:clamp(10px,1vw,13px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#C8A860;margin-bottom:.8vh;display:block;">Motor 4</span>
+        <h3 style="font-size:clamp(16px,1.8vw,24px);font-weight:600;color:white;margin-bottom:.6vh;">Bienes Ra&iacute;ces</h3>
+        <p style="font-size:clamp(11px,1.1vw,14px);color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:1.2vh;">Primera propiedad 2028&ndash;2029. FHA 3.5% entrada. El inquilino paga tu deuda.</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2vw,28px);color:var(--gold-l);font-weight:600;">$150/mes flujo+</p>
+        <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.5);">$1,300 renta &minus; $1,150 hipoteca &middot; apreciaci&oacute;n 4%/a&ntilde;o</p>
+      </div>
+      <div style="background:rgba(74,35,90,.3);border:1px solid rgba(74,35,90,.5);border-radius:14px;padding:1.5vh 1.5vw;">
+        <span style="font-size:clamp(10px,1vw,13px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#C888E8;margin-bottom:.8vh;display:block;">Motor 5</span>
+        <h3 style="font-size:clamp(16px,1.8vw,24px);font-weight:600;color:white;margin-bottom:.6vh;">Fideicomiso Familiar</h3>
+        <p style="font-size:clamp(11px,1.1vw,14px);color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:1.2vh;">Las ni&ntilde;as heredan sin impuestos. Costo &uacute;nico $3,000&ndash;$5,000 en 2033.</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2vw,28px);color:var(--gold-l);font-weight:600;">$103M protegido</p>
+        <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.5);">sin el fideicomiso: hasta 40% en impuestos de herencia</p>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:1.5vh 1.5vw;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;">
+        <p style="color:rgba(255,255,255,.4);font-size:clamp(11px,1.1vw,14px);line-height:1.7;">Estos 5 motores corren <strong style="color:rgba(255,255,255,.7);">en paralelo</strong> al negocio.<br>No dependen de los dividendos.<br>Son el segundo sistema de<br>riqueza de la familia.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S9: ESTRUCTURA LEGAL ===== -->
+<div class="slide" id="s9" style="background:var(--warm);">
+  <div class="slide-inner">
+    <span class="eyebrow">Arquitectura corporativa</span>
+    <h2 class="display" style="font-size:clamp(28px,3.5vw,52px);font-weight:400;color:var(--navy);margin-bottom:2.5vh;">Estructura legal &mdash; c&oacute;mo est&aacute; organizado el grupo.</h2>
+    <div class="two-col" style="align-items:start;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0;">
+        <div style="background:var(--navy);border-radius:12px;padding:1.2vh 2vw;text-align:center;min-width:clamp(200px,22vw,320px);">
+          <p style="font-size:clamp(9px,.85vw,12px);color:var(--gold);font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.3vh;">EMPRESA MADRE &mdash; Wyoming</p>
+          <p style="font-size:clamp(15px,1.5vw,20px);font-weight:600;color:white;">AMJ Holding LLC</p>
+          <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.6);">Carlos 60% &middot; Esposa 40%</p>
+        </div>
+        <div style="width:1px;height:2vh;background:rgba(27,58,92,.4);"></div>
+        <div style="display:flex;gap:2vw;align-items:flex-start;">
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div style="width:1px;height:1.5vh;background:rgba(27,58,92,.3);"></div>
+            <div style="background:rgba(27,58,92,.85);border:2px solid rgba(201,168,76,.4);border-radius:12px;padding:1.2vh 1.5vw;text-align:center;min-width:clamp(160px,15vw,220px);">
+              <p style="font-size:clamp(9px,.85vw,12px);color:var(--gold);font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.3vh;">SaaS B2B</p>
+              <p style="font-size:clamp(14px,1.4vw,19px);font-weight:600;color:white;">VERAXIS ONE LLC</p>
+              <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.6);">Holding 87%<br>Antonella 5% (2037)<br>Reserva 8%</p>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div style="width:1px;height:1.5vh;background:rgba(27,58,92,.3);"></div>
+            <div style="background:rgba(14,92,80,.4);border:1px solid rgba(14,92,80,.6);border-radius:12px;padding:1.2vh 1.5vw;text-align:center;min-width:clamp(160px,15vw,220px);">
+              <p style="font-size:clamp(9px,.85vw,12px);color:#80E8D8;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.3vh;">App Familiar</p>
+              <p style="font-size:clamp(14px,1.4vw,19px);font-weight:600;color:white;">SRL Bolivia</p>
+              <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.6);">Esposa 99%<br>Suegra 1% (nominal)</p>
+            </div>
+          </div>
+        </div>
+        <div class="nota" style="margin-top:1.5vh;background:white;color:var(--text);">La SRL Bolivia se abre cuando haya operaci&oacute;n real all&aacute;. Tu esposa firma sola en Bolivia &mdash; no necesitas ir t&uacute;.</div>
+      </div>
+      <div>
+        <p style="font-size:clamp(11px,1.1vw,14px);font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--navy);margin-bottom:1.2vh;">Pasos el d&iacute;a que llega el SSN &mdash; Finales abril 2026</p>
+        <div style="display:flex;flex-direction:column;gap:1vh;">
+          <div style="display:flex;gap:1.2vw;align-items:flex-start;background:white;border-radius:10px;padding:1vh 1.5vw;border-left:4px solid var(--gold);">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.2vw,30px);font-weight:600;color:var(--gold);min-width:30px;">1</span>
+            <div><p style="font-size:clamp(12px,1.2vw,16px);font-weight:600;color:var(--navy);">VERAXIS ONE LLC en Wyoming</p><p style="font-size:clamp(11px,1.1vw,14px);color:var(--muted);">Solo a nombre de Carlos. $100&ndash;$150. Northwest Registered Agent.</p></div>
+          </div>
+          <div style="display:flex;gap:1.2vw;align-items:flex-start;background:white;border-radius:10px;padding:1vh 1.5vw;border-left:4px solid var(--gold);">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.2vw,30px);font-weight:600;color:var(--gold);min-width:30px;">2</span>
+            <div><p style="font-size:clamp(12px,1.2vw,16px);font-weight:600;color:var(--navy);">EIN del IRS</p><p style="font-size:clamp(11px,1.1vw,14px);color:var(--muted);">Gratis en IRS.gov. 15 minutos online.</p></div>
+          </div>
+          <div style="display:flex;gap:1.2vw;align-items:flex-start;background:white;border-radius:10px;padding:1vh 1.5vw;border-left:4px solid var(--gold);">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.2vw,30px);font-weight:600;color:var(--gold);min-width:30px;">3</span>
+            <div><p style="font-size:clamp(12px,1.2vw,16px);font-weight:600;color:var(--navy);">Foreign LLC en Maryland</p><p style="font-size:clamp(11px,1.1vw,14px);color:var(--muted);">Obligatorio por vivir en Maryland. $100&ndash;$150. Maryland SDAT.</p></div>
+          </div>
+          <div style="display:flex;gap:1.2vw;align-items:flex-start;background:white;border-radius:10px;padding:1vh 1.5vw;border-left:4px solid var(--gold);">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.2vw,30px);font-weight:600;color:var(--gold);min-width:30px;">4</span>
+            <div><p style="font-size:clamp(12px,1.2vw,16px);font-weight:600;color:var(--navy);">Mercury Bank &mdash; 5 cuentas Profit First</p><p style="font-size:clamp(11px,1.1vw,14px);color:var(--muted);">Cuenta de negocio gratis. Conectar Stripe para cobros recurrentes.</p></div>
+          </div>
+          <div style="background:var(--ly);border-radius:10px;padding:1vh 1.5vw;border-left:4px solid var(--orange);">
+            <p style="font-size:clamp(12px,1.2vw,16px);font-weight:700;color:var(--navy);">AMJ Holding LLC &mdash; m&aacute;s adelante</p>
+            <p style="font-size:clamp(11px,1.1vw,14px);color:var(--muted);">Se abre cuando haya patrimonio real que proteger. No es urgente ahora. No tiene sentido econ&oacute;mico antes de tener traccion.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S10: CIERRE ===== -->
+<div class="slide" id="s10" style="background:var(--navy);">
+  <div class="cover-glow"></div>
+  <div style="text-align:center;max-width:1000px;position:relative;z-index:1;">
+    <span class="eyebrow" style="color:var(--gold);">El plan completo &mdash; Familia Salazar</span>
+    <h2 class="display" style="font-size:clamp(30px,4.2vw,62px);font-weight:300;color:white;margin-bottom:1.5vh;">
+      No te pido que conf&iacute;es<br>en un sue&ntilde;o.<br><em>Te pido que conf&iacute;es en el plan.</em>
+    </h2>
+    <!-- Fila 1: Estructura, Holding, Antonella -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.2vw;max-width:920px;margin:1.8vh auto;">
+      <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:1.4vh 1vw;text-align:center;">
+        <p style="font-size:clamp(9px,.9vw,12px);color:rgba(255,255,255,.5);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.5vh;">Estructura</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(15px,1.7vw,22px);color:white;font-weight:600;">AMJ Holding LLC</p>
+        <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.5);">Carlos 60% &middot; Esposa 40%</p>
+      </div>
+      <div style="background:rgba(255,255,255,.08);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:1.4vh 1vw;text-align:center;">
+        <p style="font-size:clamp(9px,.9vw,12px);color:rgba(255,255,255,.5);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.5vh;">Negocios</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(15px,1.7vw,22px);color:var(--gold-l);font-weight:600;">V1 + SENDA</p>
+        <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.5);">MRR $2,871,533/mes en 2043</p>
+      </div>
+      <div style="background:rgba(74,35,90,.3);border:1px solid rgba(200,136,232,.2);border-radius:12px;padding:1.4vh 1vw;text-align:center;">
+        <p style="font-size:clamp(9px,.9vw,12px);color:rgba(255,255,255,.5);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.5vh;">Antonella</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(15px,1.7vw,22px);color:#C888E8;font-weight:600;">M&eacute;dica Bolivia</p>
+        <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.5);">5% VERAXIS ONE &middot; entra 2037</p>
+      </div>
+    </div>
+    <!-- Fila 2: Dividendos por persona -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.2vw;max-width:920px;margin:1vh auto;">
+      <div style="background:rgba(74,35,90,.25);border:1px solid rgba(200,136,232,.2);border-radius:12px;padding:1.4vh 1vw;text-align:center;">
+        <p style="font-size:clamp(9px,.9vw,12px);color:rgba(255,255,255,.5);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.5vh;">Antonella / mes</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.2vw,30px);color:#C888E8;font-weight:600;">$10,802</p>
+        <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.5);">dividendos desde que entra al grupo</p>
+      </div>
+      <div style="background:rgba(255,255,255,.08);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:1.4vh 1vw;text-align:center;">
+        <p style="font-size:clamp(9px,.9vw,12px);color:rgba(255,255,255,.5);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.5vh;">Carlos / mes</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.2vw,30px);color:var(--gold-l);font-weight:600;">$344,584</p>
+        <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.5);">dividendos escenario conservador</p>
+      </div>
+      <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.4vh 1vw;text-align:center;">
+        <p style="font-size:clamp(9px,.9vw,12px);color:rgba(255,255,255,.5);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.5vh;">Esposa / mes</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.2vw,30px);color:white;font-weight:600;">$229,722</p>
+        <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.5);">dividendos escenario conservador</p>
+      </div>
+    </div>
+    <!-- Fila 3: Valor grupo + Valor de venta -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2vw;max-width:920px;margin:1vh auto;">
+      <div style="background:rgba(26,92,53,.3);border:1px solid rgba(76,175,130,.2);border-radius:12px;padding:1.4vh 1vw;text-align:center;">
+        <p style="font-size:clamp(9px,.9vw,12px);color:rgba(255,255,255,.5);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.5vh;">Valor del grupo 2043</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.5vw,36px);color:#4CAF82;font-weight:600;">$103M</p>
+        <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.5);">valuaci&oacute;n conservadora 3&times; ARR</p>
+      </div>
+      <div style="background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.35);border-radius:12px;padding:1.4vh 1vw;text-align:center;">
+        <p style="font-size:clamp(9px,.9vw,12px);color:rgba(255,255,255,.5);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.5vh;">Si vendes el grupo en 2043</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.5vw,36px);color:var(--gold-l);font-weight:600;">$103,375,188</p>
+        <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.5);">precio de venta conservador &middot; 3&times; ARR &middot; sin descuento</p>
+      </div>
+    </div>
+    <p style="font-size:clamp(12px,1.3vw,17px);color:rgba(255,255,255,.45);max-width:700px;margin:1.5vh auto 0;line-height:1.8;">Dos empresas. Un holding. Diecisiete a&ntilde;os de trabajo constante.<br>Todo ya est&aacute; calculado. Todo ya est&aacute; planificado.</p>
+    <p style="font-size:clamp(10px,1vw,13px);color:rgba(255,255,255,.2);letter-spacing:.2em;text-transform:uppercase;margin-top:1.5vh;">CARLOS &middot; ESPOSA &middot; ANTONELLA &middot; MAR&Iacute;A JOS&Eacute; &middot; FAMILIA SALAZAR</p>
+  </div>
+</div>
+
+<!-- ===== S_ANT: ANTONELLA — UNA CREDENCIAL. DOS MERCADOS ===== -->
+<div class="slide" id="s_ant" style="background:var(--purple);">
+  <div class="slide-inner">
+    <span class="eyebrow" style="color:var(--gold);">El vertical que lo multiplica todo</span>
+    <h2 class="display" style="font-size:clamp(28px,3.5vw,52px);font-weight:300;color:white;margin-bottom:.5vh;">Antonella lidera el segmento de salud.<br><em>Una credencial. Dos mercados.</em></h2>
+    <p style="font-size:clamp(12px,1.2vw,16px);color:rgba(255,255,255,.65);margin-bottom:1.5vh;max-width:640px;line-height:1.6;">Cuando Antonella se grad&#250;e como m&#233;dica, abre dos mercados que ning&#250;n otro miembro del equipo puede abrir sin credencial m&#233;dica real.</p>
+    <div class="two-col" style="align-items:start;">
+      <!-- Tabla de ruta -->
+      <div>
+        <table style="width:100%;border-collapse:collapse;font-size:clamp(11px,1.1vw,14px);">
+          <tr><th style="background:rgba(255,255,255,.15);color:var(--gold-l);padding:.7vh 1vw;text-align:left;font-weight:600;">Per&#237;odo</th><th style="background:rgba(255,255,255,.15);color:var(--gold-l);padding:.7vh 1vw;font-weight:600;">Edad</th><th style="background:rgba(255,255,255,.15);color:var(--gold-l);padding:.7vh 1vw;font-weight:600;">Qu&#233; hace</th><th style="background:rgba(255,255,255,.15);color:var(--gold-l);padding:.7vh 1vw;font-weight:600;">Qu&#233; logra</th></tr>
+          <tr style="background:rgba(255,255,255,.06);"><td style="padding:.6vh 1vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">2026&ndash;2030</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">13&ndash;17</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.08);">Secundaria en Bolivia. Ingl&#233;s meta B2.</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.8);border-bottom:1px solid rgba(255,255,255,.08);">Ingl&#233;s fluido. Entiende el negocio.</td></tr>
+          <tr style="background:rgba(255,255,255,.04);"><td style="padding:.6vh 1vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">2031&ndash;2036</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">18&ndash;23</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.08);">Medicina UNIFRANZ, UCB o UPB. Ingl&#233;s C1.</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.8);border-bottom:1px solid rgba(255,255,255,.08);">T&#237;tulo m&#233;dico. Ingl&#233;s C1 certificado.</td></tr>
+          <tr style="background:rgba(255,255,255,.06);"><td style="padding:.6vh 1vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">2036&ndash;2037</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">23&ndash;24</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.08);">Posgrado gesti&#243;n empresas de salud.</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.8);border-bottom:1px solid rgba(255,255,255,.08);">Doble perfil: m&#233;dica + gestora.</td></tr>
+          <tr style="background:rgba(255,255,255,.04);"><td style="padding:.6vh 1vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">2037&ndash;2038</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">24&ndash;25</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.08);">Entra al grupo como Directora Health.</td><td style="padding:.6vh 1vw;color:rgba(255,255,255,.8);border-bottom:1px solid rgba(255,255,255,.08);">Primeros contratos con hospitales.</td></tr>
+          <tr style="background:rgba(201,168,76,.15);"><td style="padding:.6vh 1vw;color:white;font-weight:700;">2038&ndash;2043</td><td style="padding:.6vh 1vw;color:white;font-weight:700;">25&ndash;30</td><td style="padding:.6vh 1vw;color:white;font-weight:700;">CMO &amp; CEO VERAXIS ONE Health + SENDA Health.</td><td style="padding:.6vh 1vw;color:var(--gold-l);font-weight:700;">Lidera el vertical m&#225;s grande del grupo.</td></tr>
+        </table>
+        <div style="background:rgba(255,255,255,.08);border-radius:10px;padding:1.2vh 1.5vw;margin-top:1.2vh;border-left:3px solid var(--gold);">
+          <p style="color:rgba(255,255,255,.8);font-size:clamp(11px,1.1vw,14px);line-height:1.6;">Sus dividendos (Esc. C): <strong style="color:var(--gold-l);">$129,629/a&#241;o</strong> en 2043. M&#225;s un activo personal de <strong style="color:var(--gold-l);">$5.4M&ndash;$9.9M</strong>. Puede hacer cualquier cosa en la vida &mdash; medicina humanitaria, investigaci&#243;n &mdash; sin preocupaciones econ&#243;micas.</p>
+        </div>
+      </div>
+      <!-- Panel derecho: impacto numérico -->
+      <div style="display:flex;flex-direction:column;gap:1.2vh;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1vw;">
+          <div style="background:rgba(255,255,255,.1);border-radius:12px;padding:1.2vh 1.2vw;text-align:center;">
+            <p style="font-size:clamp(9px,.85vw,12px);color:rgba(255,255,255,.5);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.4vh;">VERAXIS ONE HEALTH<br>SIN ANTONELLA</p>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.2vw,30px);font-weight:600;color:rgba(255,255,255,.6);">$358K&ndash;$583K</p>
+            <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.4);">MRR/mes</p>
+          </div>
+          <div style="background:rgba(255,255,255,.1);border-radius:12px;padding:1.2vh 1.2vw;text-align:center;">
+            <p style="font-size:clamp(9px,.85vw,12px);color:rgba(255,255,255,.5);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.4vh;">SENDA HEALTH<br>SIN ANTONELLA</p>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2.2vw,30px);font-weight:600;color:rgba(255,255,255,.6);">$200K&ndash;$400K</p>
+            <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.4);">MRR/mes</p>
+          </div>
+        </div>
+        <div style="background:var(--gold);border-radius:12px;padding:1.5vh 1.5vw;text-align:center;">
+          <p style="font-size:clamp(9px,.9vw,12px);font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--navy);margin-bottom:.4vh;">CON ANTONELLA &mdash; AMBOS VERTICALES</p>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3vw,44px);font-weight:600;color:var(--navy);">$1,746K&ndash;$2,874K</p>
+          <p style="font-size:clamp(11px,1.1vw,14px);color:var(--navy);margin-top:.3vh;">MRR mensual &middot; <strong>+$1.2M&ndash;$1.9M extra por su credencial m&#233;dica</strong></p>
+        </div>
+        <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:1.2vh 1.5vw;">
+          <p style="font-size:clamp(12px,1.2vw,16px);font-weight:600;color:var(--gold-l);margin-bottom:.8vh;">Estructura accionaria &mdash; Opci&#243;n B</p>
+          <table style="width:100%;border-collapse:collapse;font-size:clamp(11px,1.1vw,14px);">
+            <tr><th style="background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);padding:.5vh .8vw;text-align:left;">Entidad</th><th style="background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);padding:.5vh .8vw;">Antonella</th><th style="background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);padding:.5vh .8vw;">Dividendos 2043 (Esc. C)</th></tr>
+            <tr style="background:rgba(255,255,255,.06);"><td style="padding:.5vh .8vw;color:rgba(255,255,255,.8);border-bottom:1px solid rgba(255,255,255,.08);">VERAXIS ONE LLC</td><td style="padding:.5vh .8vw;color:var(--gold-l);font-weight:600;border-bottom:1px solid rgba(255,255,255,.08);">5% directo</td><td style="padding:.5vh .8vw;color:var(--gold-l);font-weight:600;border-bottom:1px solid rgba(255,255,255,.08);">$129,629/a&#241;o</td></tr>
+            <tr style="background:rgba(255,255,255,.04);"><td style="padding:.5vh .8vw;color:rgba(255,255,255,.7);">Holding LLC</td><td style="padding:.5vh .8vw;color:rgba(255,255,255,.5);">No aplica</td><td style="padding:.5vh .8vw;color:rgba(255,255,255,.5);">Carlos 60% / Esposa 40%</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S_V1_VERT: VERTICALES VERAXIS ONE ===== -->
+<div class="slide" id="s_v1_vert" style="background:var(--warm);">
+  <div class="slide-inner">
+    <span class="eyebrow">Hoja de ruta de crecimiento</span>
+    <h2 class="display" style="font-size:clamp(28px,3.5vw,52px);font-weight:400;color:var(--navy);margin-bottom:1vh;">VERAXIS ONE &mdash; 6 verticales.<br><em>Un mercado diferente cada vez.</em></h2>
+    <p style="font-size:clamp(11px,1.1vw,14px);color:var(--muted);margin-bottom:1.5vh;">Cada vertical abre un mercado nuevo sin ca&ntilde;ibalizarse entre s&iacute;. El producto base es el mismo &mdash; cambia qui&eacute;n lo usa y cu&aacute;nto paga.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.2vw;">
+
+      <!-- V1 -->
+      <div style="background:var(--navy);border-radius:14px;padding:1.4vh 1.4vw;border-top:4px solid var(--gold);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.6vh;">
+          <span style="font-size:clamp(9px,.85vw,12px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);">VERTICAL 1 &mdash; ACTIVA HOY</span>
+          <span style="background:rgba(201,168,76,.2);color:var(--gold);font-size:clamp(9px,.85vw,11px);font-weight:700;padding:2px 8px;border-radius:10px;border:1px solid rgba(201,168,76,.4);">2027+</span>
+        </div>
+        <h3 style="font-size:clamp(15px,1.6vw,22px);font-weight:600;color:white;margin-bottom:.4vh;">Period&#237;stica &amp; Editorial</h3>
+        <p style="font-size:clamp(10px,1vw,13px);color:rgba(255,255,255,.6);line-height:1.5;margin-bottom:1vh;">Periodistas y creadores verifican art&#237;culos, videos y podcasts antes de publicar. Protecci&#243;n de reputaci&#243;n editorial.</p>
+        <div style="display:flex;justify-content:space-between;padding:.5vh .7vw;background:rgba(255,255,255,.08);border-radius:8px;margin-bottom:.4vh;"><span style="color:rgba(255,255,255,.5);font-size:clamp(9px,.9vw,12px);">Ticket</span><span style="color:var(--gold-l);font-weight:600;font-size:clamp(10px,1vw,13px);">$20&ndash;$299/mes</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.5vh .7vw;background:rgba(255,255,255,.08);border-radius:8px;margin-bottom:.4vh;"><span style="color:rgba(255,255,255,.5);font-size:clamp(9px,.9vw,12px);">Clientes 2043</span><span style="color:var(--gold-l);font-weight:600;font-size:clamp(10px,1vw,13px);">~5,100 (45% del total)</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.5vh .7vw;background:rgba(255,255,255,.08);border-radius:8px;"><span style="color:rgba(255,255,255,.5);font-size:clamp(9px,.9vw,12px);">Churn</span><span style="color:rgba(255,255,255,.7);font-size:clamp(10px,1vw,13px);">20% a&ntilde;os 1&ndash;4</span></div>
+      </div>
+
+      <!-- V2 -->
+      <div style="background:white;border-radius:14px;padding:1.4vh 1.4vw;border-top:4px solid #2E5C8A;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.6vh;">
+          <span style="font-size:clamp(9px,.85vw,12px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#2E5C8A;">VERTICAL 2</span>
+          <span style="background:rgba(46,92,138,.1);color:#2E5C8A;font-size:clamp(9px,.85vw,11px);font-weight:700;padding:2px 8px;border-radius:10px;border:1px solid rgba(46,92,138,.3);">2031</span>
+        </div>
+        <h3 style="font-size:clamp(15px,1.6vw,22px);font-weight:600;color:var(--navy);margin-bottom:.4vh;">Financiero &amp; Inversiones</h3>
+        <p style="font-size:clamp(10px,1vw,13px);color:var(--muted);line-height:1.5;margin-bottom:1vh;">Analistas, fondos y medios financieros verifican datos econ&#243;micos, reportes y declaraciones de empresas antes de publicar.</p>
+        <div style="display:flex;justify-content:space-between;padding:.5vh .7vw;background:var(--lb);border-radius:8px;margin-bottom:.4vh;"><span style="color:var(--muted);font-size:clamp(9px,.9vw,12px);">Ticket</span><span style="color:#2E5C8A;font-weight:600;font-size:clamp(10px,1vw,13px);">$69&ndash;$299/mes</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.5vh .7vw;background:var(--lb);border-radius:8px;margin-bottom:.4vh;"><span style="color:var(--muted);font-size:clamp(9px,.9vw,12px);">Impacto en ticket</span><span style="color:#2E5C8A;font-weight:600;font-size:clamp(10px,1vw,13px);">+$10 al promedio</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.5vh .7vw;background:var(--lb);border-radius:8px;"><span style="color:var(--muted);font-size:clamp(9px,.9vw,12px);">Requiere</span><span style="color:var(--navy);font-size:clamp(10px,1vw,13px);">Base V1 s&oacute;lida</span></div>
+      </div>
+
+      <!-- V3 -->
+      <div style="background:white;border-radius:14px;padding:1.4vh 1.4vw;border-top:4px solid var(--orange);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.6vh;">
+          <span style="font-size:clamp(9px,.85vw,12px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);">VERTICAL 3</span>
+          <span style="background:rgba(125,60,0,.1);color:var(--orange);font-size:clamp(9px,.85vw,11px);font-weight:700;padding:2px 8px;border-radius:10px;border:1px solid rgba(125,60,0,.3);">2033</span>
+        </div>
+        <h3 style="font-size:clamp(15px,1.6vw,22px);font-weight:600;color:var(--navy);margin-bottom:.4vh;">Legal &amp; Jur&#237;dico</h3>
+        <p style="font-size:clamp(10px,1vw,13px);color:var(--muted);line-height:1.5;margin-bottom:1vh;">Abogados y firmas legales verifican declaraciones, precedentes y documentos antes de presentarlos en corte o medios.</p>
+        <div style="display:flex;justify-content:space-between;padding:.5vh .7vw;background:var(--lgo);border-radius:8px;margin-bottom:.4vh;"><span style="color:var(--muted);font-size:clamp(9px,.9vw,12px);">Ticket</span><span style="color:var(--orange);font-weight:600;font-size:clamp(10px,1vw,13px);">$69&ndash;$299/mes</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.5vh .7vw;background:var(--lgo);border-radius:8px;margin-bottom:.4vh;"><span style="color:var(--muted);font-size:clamp(9px,.9vw,12px);">Impacto en ticket</span><span style="color:var(--orange);font-weight:600;font-size:clamp(10px,1vw,13px);">+$15 al promedio</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.5vh .7vw;background:var(--lgo);border-radius:8px;"><span style="color:var(--muted);font-size:clamp(9px,.9vw,12px);">Diferenciador</span><span style="color:var(--navy);font-size:clamp(10px,1vw,13px);">Audit log legal</span></div>
+      </div>
+
+      <!-- V4 -->
+      <div style="background:var(--purple);border-radius:14px;padding:1.4vh 1.4vw;border-top:4px solid #C888E8;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.6vh;">
+          <span style="font-size:clamp(9px,.85vw,12px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#C888E8;">VERTICAL 4 &mdash; ANTONELLA</span>
+          <span style="background:rgba(200,136,232,.2);color:#C888E8;font-size:clamp(9px,.85vw,11px);font-weight:700;padding:2px 8px;border-radius:10px;border:1px solid rgba(200,136,232,.4);">2037</span>
+        </div>
+        <h3 style="font-size:clamp(15px,1.6vw,22px);font-weight:600;color:white;margin-bottom:.4vh;">Health &amp; Salud</h3>
+        <p style="font-size:clamp(10px,1vw,13px);color:rgba(255,255,255,.65);line-height:1.5;margin-bottom:1vh;">M&eacute;dicos y hospitales verifican informaci&#243;n cl&#237;nica, investigaciones y declaraciones antes de publicarlas. Requiere credencial m&#233;dica.</p>
+        <div style="display:flex;justify-content:space-between;padding:.5vh .7vw;background:rgba(255,255,255,.1);border-radius:8px;margin-bottom:.4vh;"><span style="color:rgba(255,255,255,.5);font-size:clamp(9px,.9vw,12px);">Ticket</span><span style="color:#C888E8;font-weight:600;font-size:clamp(10px,1vw,13px);">$69&ndash;$299/mes</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.5vh .7vw;background:rgba(255,255,255,.1);border-radius:8px;margin-bottom:.4vh;"><span style="color:rgba(255,255,255,.5);font-size:clamp(9px,.9vw,12px);">Diferenciador</span><span style="color:#C888E8;font-weight:600;font-size:clamp(10px,1vw,13px);">Credencial Antonella</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.5vh .7vw;background:rgba(255,255,255,.1);border-radius:8px;"><span style="color:rgba(255,255,255,.5);font-size:clamp(9px,.9vw,12px);">Impacto en ticket</span><span style="color:#C888E8;font-weight:600;font-size:clamp(10px,1vw,13px);">+$25 al promedio</span></div>
+      </div>
+
+      <!-- V5 -->
+      <div style="background:white;border-radius:14px;padding:1.4vh 1.4vw;border-top:4px solid var(--red);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.6vh;">
+          <span style="font-size:clamp(9px,.85vw,12px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);">VERTICAL 5</span>
+          <span style="background:rgba(139,0,0,.1);color:var(--red);font-size:clamp(9px,.85vw,11px);font-weight:700;padding:2px 8px;border-radius:10px;border:1px solid rgba(139,0,0,.3);">2037</span>
+        </div>
+        <h3 style="font-size:clamp(15px,1.6vw,22px);font-weight:600;color:var(--navy);margin-bottom:.4vh;">Electoral &amp; Pol&#237;tico</h3>
+        <p style="font-size:clamp(10px,1vw,13px);color:var(--muted);line-height:1.5;margin-bottom:1vh;">Medios, partidos y observadores verifican declaraciones de candidatos y resultados electorales. Ciclo de alta demanda cada 4 a&ntilde;os.</p>
+        <div style="display:flex;justify-content:space-between;padding:.5vh .7vw;background:var(--rl);border-radius:8px;margin-bottom:.4vh;"><span style="color:var(--muted);font-size:clamp(9px,.9vw,12px);">Ticket</span><span style="color:var(--red);font-weight:600;font-size:clamp(10px,1vw,13px);">$69&ndash;$299/mes</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.5vh .7vw;background:var(--rl);border-radius:8px;margin-bottom:.4vh;"><span style="color:var(--muted);font-size:clamp(9px,.9vw,12px);">Demanda</span><span style="color:var(--red);font-weight:600;font-size:clamp(10px,1vw,13px);">Pico en a&ntilde;os electorales</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.5vh .7vw;background:var(--rl);border-radius:8px;"><span style="color:var(--muted);font-size:clamp(9px,.9vw,12px);">LATAM ciclos</span><span style="color:var(--navy);font-size:clamp(10px,1vw,13px);">MX, CO, AR, VE, BO</span></div>
+      </div>
+
+      <!-- V6 -->
+      <div style="background:white;border-radius:14px;padding:1.4vh 1.4vw;border-top:4px solid var(--green);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.6vh;">
+          <span style="font-size:clamp(9px,.85vw,12px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--green);">VERTICAL 6</span>
+          <span style="background:rgba(26,92,53,.1);color:var(--green);font-size:clamp(9px,.85vw,11px);font-weight:700;padding:2px 8px;border-radius:10px;border:1px solid rgba(26,92,53,.3);">2040+</span>
+        </div>
+        <h3 style="font-size:clamp(15px,1.6vw,22px);font-weight:600;color:var(--navy);margin-bottom:.4vh;">Corporativo &amp; ESG</h3>
+        <p style="font-size:clamp(10px,1vw,13px);color:var(--muted);line-height:1.5;margin-bottom:1vh;">Empresas verifican reportes ESG, comunicados corporativos y declaraciones financieras. Mayor ticket de todo el portafolio.</p>
+        <div style="display:flex;justify-content:space-between;padding:.5vh .7vw;background:var(--lg);border-radius:8px;margin-bottom:.4vh;"><span style="color:var(--muted);font-size:clamp(9px,.9vw,12px);">Ticket</span><span style="color:var(--green);font-weight:600;font-size:clamp(10px,1vw,13px);">$299&ndash;$4,500/mes</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.5vh .7vw;background:var(--lg);border-radius:8px;margin-bottom:.4vh;"><span style="color:var(--muted);font-size:clamp(9px,.9vw,12px);">Impacto en ticket</span><span style="color:var(--green);font-weight:600;font-size:clamp(10px,1vw,13px);">Mayor upside del modelo</span></div>
+        <div style="display:flex;justify-content:space-between;padding:.5vh .7vw;background:var(--lg);border-radius:8px;"><span style="color:var(--muted);font-size:clamp(9px,.9vw,12px);">Requiere</span><span style="color:var(--navy);font-size:clamp(10px,1vw,13px);">Marca consolidada</span></div>
+      </div>
+
+    </div>
+    <div class="nota" style="margin-top:1.5vh;background:var(--lb);border-color:var(--navy);color:var(--navy);">
+      El ticket promedio sube de <strong>$38 en 2027</strong> a <strong>$95 en 2043</strong> porque cada vertical nueva suma clientes de mayor valor al mix. No es inflaci&#243;n &mdash; es el mismo cliente base que m&#225;s verticales adoptan con el tiempo.
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== S11: SENDA — 3 MODELOS SEPARADOS ===== -->
+<div class="slide" id="s11" style="background:var(--warm);">
+  <div class="slide-inner">
+    <span class="eyebrow">SENDA en detalle &mdash; an&#225;lisis correcto</span>
+    <h2 class="display" style="font-size:clamp(26px,3.2vw,48px);font-weight:400;color:var(--navy);margin-bottom:1.5vh;">SENDA son 3 negocios distintos &mdash; cada uno con su propia l&#243;gica.</h2>
+    <p style="font-size:clamp(11px,1.1vw,14px);color:var(--muted);margin-bottom:1.5vh;font-style:italic;">Nota del modelo: Consumer, Schools y Health tienen ciclos de venta, churn y CAC completamente diferentes. Esta separaci&#243;n fue recomendada por an&#225;lisis externo independiente.</p>
+    <div class="three-col">
+      <!-- CONSUMER -->
+      <div style="background:var(--navy);border-radius:14px;padding:1.5vh 1.5vw;">
+        <span style="font-size:clamp(9px,.9vw,12px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#80E8D8;margin-bottom:.6vh;display:block;">Modelo 1</span>
+        <h3 style="font-size:clamp(16px,1.8vw,24px);font-weight:600;color:white;margin-bottom:.8vh;">SENDA Consumer</h3>
+        <p style="font-size:clamp(11px,1.1vw,14px);color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:1.2vh;">Familias con hijos que pagan mensualmente por seguridad familiar digital.</p>
+        <div style="display:flex;flex-direction:column;gap:.7vh;">
+          <div style="display:flex;justify-content:space-between;padding:.5vh .8vw;background:rgba(255,255,255,.06);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Ticket LATAM</span><span style="color:#80E8D8;font-weight:600;font-size:clamp(11px,1.1vw,14px);">$3.99/mes</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.5vh .8vw;background:rgba(255,255,255,.06);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Ticket EE.UU.</span><span style="color:#80E8D8;font-weight:600;font-size:clamp(11px,1.1vw,14px);">$7.99/mes</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.5vh .8vw;background:rgba(255,255,255,.06);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Churn anual</span><span style="color:var(--red);font-weight:600;font-size:clamp(11px,1.1vw,14px);">35% a&#241;os 1-3</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.5vh .8vw;background:rgba(255,255,255,.06);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Ciclo de venta</span><span style="color:rgba(255,255,255,.8);font-size:clamp(11px,1.1vw,14px);">Autoservicio &mdash; r&#225;pido</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.5vh .8vw;background:rgba(255,255,255,.06);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Competencia</span><span style="color:var(--red);font-weight:600;font-size:clamp(11px,1.1vw,14px);">Life360 gratis</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.5vh .8vw;background:rgba(255,255,255,.06);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Familias 2043</span><span style="color:#80E8D8;font-weight:700;font-size:clamp(11px,1.1vw,14px);">~18,000</span></div>
+        </div>
+        <div style="background:rgba(139,0,0,.25);border-radius:8px;padding:.8vh 1vw;margin-top:1vh;border-left:3px solid var(--red);">
+          <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.75);">Riesgo: Google Family Link y WhatsApp location sharing son gratis. Diferenciador real: contexto LATAM + Health.</p>
+        </div>
+      </div>
+      <!-- SCHOOLS -->
+      <div style="background:var(--green);border-radius:14px;padding:1.5vh 1.5vw;">
+        <span style="font-size:clamp(9px,.9vw,12px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-l);margin-bottom:.6vh;display:block;">Modelo 2</span>
+        <h3 style="font-size:clamp(16px,1.8vw,24px);font-weight:600;color:white;margin-bottom:.8vh;">SENDA for Schools</h3>
+        <p style="font-size:clamp(11px,1.1vw,14px);color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:1.2vh;">Colegios privados LATAM contratan SENDA para comunicar emergencias y monitorear la seguridad de sus alumnos.</p>
+        <div style="display:flex;flex-direction:column;gap:.7vh;">
+          <div style="display:flex;justify-content:space-between;padding:.5vh .8vw;background:rgba(255,255,255,.1);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Ticket</span><span style="color:var(--gold-l);font-weight:600;font-size:clamp(11px,1.1vw,14px);">$49/mes por colegio</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.5vh .8vw;background:rgba(255,255,255,.1);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Churn anual</span><span style="color:var(--gold-l);font-weight:600;font-size:clamp(11px,1.1vw,14px);">12-18% (institucional)</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.5vh .8vw;background:rgba(255,255,255,.1);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Ciclo de venta</span><span style="color:rgba(255,255,255,.8);font-size:clamp(11px,1.1vw,14px);">2-4 meses (director)</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.5vh .8vw;background:rgba(255,255,255,.1);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Competencia</span><span style="color:rgba(255,255,255,.8);font-size:clamp(11px,1.1vw,14px);">Baja en LATAM</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.5vh .8vw;background:rgba(255,255,255,.1);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Colegios 2043</span><span style="color:var(--gold-l);font-weight:700;font-size:clamp(11px,1.1vw,14px);">~900 colegios</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.5vh .8vw;background:rgba(255,255,255,.1);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Activa desde</span><span style="color:var(--gold-l);font-weight:600;font-size:clamp(11px,1.1vw,14px);">2029-2030</span></div>
+        </div>
+        <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:.8vh 1vw;margin-top:1vh;border-left:3px solid var(--gold);">
+          <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.85);">Ventaja: ticket 12x mayor que consumer. Un solo colegio = 12 familias. Retenci&#243;n institucional mucho m&#225;s alta.</p>
+        </div>
+      </div>
+      <!-- HEALTH -->
+      <div style="background:var(--purple);border-radius:14px;padding:1.5vh 1.5vw;">
+        <span style="font-size:clamp(9px,.9vw,12px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#C888E8;margin-bottom:.6vh;display:block;">Modelo 3 &mdash; Antonella</span>
+        <h3 style="font-size:clamp(16px,1.8vw,24px);font-weight:600;color:white;margin-bottom:.8vh;">SENDA Health</h3>
+        <p style="font-size:clamp(11px,1.1vw,14px);color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:1.2vh;">Hospitales, cl&#237;nicas y aseguradoras contratan SENDA como infraestructura de salud familiar. Requiere credencial m&#233;dica de Antonella.</p>
+        <div style="display:flex;flex-direction:column;gap:.7vh;">
+          <div style="display:flex;justify-content:space-between;padding:.5vh .8vw;background:rgba(255,255,255,.08);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Ticket promedio</span><span style="color:#C888E8;font-weight:600;font-size:clamp(11px,1.1vw,14px);">$250/mes</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.5vh .8vw;background:rgba(255,255,255,.08);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Churn anual</span><span style="color:#C888E8;font-weight:600;font-size:clamp(11px,1.1vw,14px);">&lt;8% (contrato)</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.5vh .8vw;background:rgba(255,255,255,.08);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Ciclo de venta</span><span style="color:rgba(255,255,255,.8);font-size:clamp(11px,1.1vw,14px);">12-18 meses</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.5vh .8vw;background:rgba(255,255,255,.08);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Competencia</span><span style="color:rgba(255,255,255,.8);font-size:clamp(11px,1.1vw,14px);">Baja con dif. m&#233;dica</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.5vh .8vw;background:rgba(255,255,255,.08);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">MRR Health 2043</span><span style="color:#C888E8;font-weight:700;font-size:clamp(11px,1.1vw,14px);">~$900K/mes</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.5vh .8vw;background:rgba(255,255,255,.08);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Activa desde</span><span style="color:#C888E8;font-weight:600;font-size:clamp(11px,1.1vw,14px);">2038 (Antonella)</span></div>
+        </div>
+        <div style="background:rgba(139,0,0,.3);border-radius:8px;padding:.8vh 1vw;margin-top:1vh;border-left:3px solid var(--red);">
+          <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.75);">Riesgo cr&#237;tico: si Antonella no completa su credencial m&#233;dica, este segmento no se activa. Impacto: -25 al 30% del MRR final.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S12: STRESS TEST ===== -->
+<div class="slide" id="s12" style="background:#0F2538;">
+  <div class="slide-inner">
+    <span class="eyebrow" style="color:var(--gold);">An&#225;lisis de escenarios</span>
+    <h2 class="display" style="font-size:clamp(26px,3.2vw,48px);font-weight:300;color:white;margin-bottom:1.5vh;">Stress test &mdash; <em>qu&#233; pasa si el mundo no coopera.</em></h2>
+    <p style="font-size:clamp(11px,1.1vw,14px);color:rgba(255,255,255,.55);margin-bottom:2vh;">Tres escenarios reales conectados al mismo modelo. El Base es el plan aprobado. El Duro asume recesi&oacute;n, devaluaci&oacute;n y retrasos. El Feo asume p&eacute;rdida de momentum por varios a&ntilde;os, sin quiebra pero con mucha m&aacute;s paciencia.</p>
+    <div class="three-col">
+      <!-- BASE -->
+      <div style="background:rgba(26,92,53,.3);border:2px solid rgba(26,92,53,.6);border-radius:14px;padding:1.5vh 1.5vw;">
+        <div style="display:flex;align-items:center;gap:1vw;margin-bottom:1.2vh;">
+          <div style="width:12px;height:12px;border-radius:50%;background:#4CAF82;"></div>
+          <span style="font-size:clamp(10px,1vw,13px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#4CAF82;">ESCENARIO BASE</span>
+        </div>
+        <h3 style="font-size:clamp(18px,2vw,28px);font-weight:600;color:white;margin-bottom:1vh;">Ejecuci&#243;n disciplinada</h3>
+        <p style="font-size:clamp(11px,1.1vw,14px);color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:1.2vh;">El modelo aprobado. LATAM estable, Antonella llega en 2037, captaci&#243;n como proyectado.</p>
+        <div style="display:flex;flex-direction:column;gap:.7vh;">
+          <div style="display:flex;justify-content:space-between;padding:.6vh .8vw;background:rgba(255,255,255,.06);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">MRR 2043</span><span style="color:#4CAF82;font-weight:700;font-size:clamp(12px,1.2vw,16px);">$2,871,533/mes</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.6vh .8vw;background:rgba(255,255,255,.06);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Div. Carlos/mes</span><span style="color:#4CAF82;font-weight:700;font-size:clamp(12px,1.2vw,16px);">$344,584</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.6vh .8vw;background:rgba(255,255,255,.06);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Div. Esposa/mes</span><span style="color:#4CAF82;font-weight:700;font-size:clamp(12px,1.2vw,16px);">$229,722</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.6vh .8vw;background:rgba(255,255,255,.06);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Valor grupo</span><span style="color:#4CAF82;font-weight:700;font-size:clamp(12px,1.2vw,16px);">$103M</span></div>
+          
+          <div style="display:flex;justify-content:space-between;padding:.6vh .8vw;background:rgba(255,255,255,.06);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Probabilidad</span><span style="color:#4CAF82;font-weight:700;">65-75%</span></div>
+            <div style="font-size:clamp(9px,.85vw,11px);color:rgba(76,175,130,.7);margin-top:4px;line-height:1.4;">* Dividendos reales desde 2032.<br>2027&ndash;2031 = fase de inversi&oacute;n.</div>
+        </div>
+      </div>
+      <!-- DURO -->
+      <div style="background:rgba(125,60,0,.3);border:2px solid rgba(125,60,0,.6);border-radius:14px;padding:1.5vh 1.5vw;">
+        <div style="display:flex;align-items:center;gap:1vw;margin-bottom:1.2vh;">
+          <div style="width:12px;height:12px;border-radius:50%;background:#E8A060;"></div>
+          <span style="font-size:clamp(10px,1vw,13px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#E8A060;">ESCENARIO DURO</span>
+        </div>
+        <h3 style="font-size:clamp(18px,2vw,28px);font-weight:600;color:white;margin-bottom:1vh;">Crisis + retraso</h3>
+        <p style="font-size:clamp(11px,1.1vw,14px);color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:1.2vh;">Devaluaci&#243;n LATAM 2028-2030, churn sube 10%, Antonella llega con 2 a&#241;os de retraso (2039).</p>
+        <div style="display:flex;flex-direction:column;gap:.7vh;">
+          <div style="display:flex;justify-content:space-between;padding:.6vh .8vw;background:rgba(255,255,255,.06);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">MRR 2043</span><span style="color:#E8A060;font-weight:700;font-size:clamp(12px,1.2vw,16px);">~$1,720,000/mes <span style="font-size:11px;color:rgba(232,160,96,.8);">(-40%)</span></span></div>
+          <div style="display:flex;justify-content:space-between;padding:.6vh .8vw;background:rgba(255,255,255,.06);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Div. Carlos/mes</span><span style="color:#E8A060;font-weight:700;font-size:clamp(12px,1.2vw,16px);">~$206,400</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.6vh .8vw;background:rgba(255,255,255,.06);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Div. Esposa/mes</span><span style="color:#E8A060;font-weight:700;font-size:clamp(12px,1.2vw,16px);">~$137,600</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.6vh .8vw;background:rgba(255,255,255,.06);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Valor grupo</span><span style="color:#E8A060;font-weight:700;font-size:clamp(12px,1.2vw,16px);">~$62M</span></div>
+          
+          <div style="display:flex;justify-content:space-between;padding:.6vh .8vw;background:rgba(255,255,255,.06);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">&#191;Es viable?</span><span style="color:#E8A060;font-weight:700;">S&#205; &mdash; a&#250;n muy bueno</span></div>
+        </div>
+        <div style="background:rgba(201,168,76,.1);border-radius:8px;padding:.8vh 1vw;margin-top:1vh;border-left:3px solid var(--gold);">
+          <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.75);">Incluso con crisis fuerte, el plan se retrasa 2&ndash;4 a&ntilde;os, pero no se destruye. El negocio sigue pagando independencia financiera real.</p>
+        </div>
+      </div>
+      <!-- FEO -->
+      <div style="background:rgba(139,0,0,.25);border:2px solid rgba(139,0,0,.5);border-radius:14px;padding:1.5vh 1.5vw;">
+        <div style="display:flex;align-items:center;gap:1vw;margin-bottom:1.2vh;">
+          <div style="width:12px;height:12px;border-radius:50%;background:#FF6B6B;"></div>
+          <span style="font-size:clamp(10px,1vw,13px);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#FF6B6B;">ESCENARIO FEO</span>
+        </div>
+        <h3 style="font-size:clamp(18px,2vw,28px);font-weight:600;color:white;margin-bottom:1vh;">Peor caso razonable</h3>
+        <p style="font-size:clamp(11px,1.1vw,14px);color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:1.2vh;">Caida 40% MRR LATAM 2028-2032, SENDA Health no se activa, IA gratuita devora Vertical 1 en 2031.</p>
+        <div style="display:flex;flex-direction:column;gap:.7vh;">
+          <div style="display:flex;justify-content:space-between;padding:.6vh .8vw;background:rgba(255,255,255,.06);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">MRR 2043</span><span style="color:#FF6B6B;font-weight:700;font-size:clamp(12px,1.2vw,16px);">~$860,000/mes <span style="font-size:11px;color:rgba(255,107,107,.8);">(-70%)</span></span></div>
+          <div style="display:flex;justify-content:space-between;padding:.6vh .8vw;background:rgba(255,255,255,.06);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Div. Carlos/mes</span><span style="color:#FF6B6B;font-weight:700;font-size:clamp(12px,1.2vw,16px);">~$103,200</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.6vh .8vw;background:rgba(255,255,255,.06);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Div. Esposa/mes</span><span style="color:#FF6B6B;font-weight:700;font-size:clamp(12px,1.2vw,16px);">~$68,800</span></div>
+          <div style="display:flex;justify-content:space-between;padding:.6vh .8vw;background:rgba(255,255,255,.06);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">Valor grupo</span><span style="color:#FF6B6B;font-weight:700;font-size:clamp(12px,1.2vw,16px);">~$31M</span></div>
+          
+          <div style="display:flex;justify-content:space-between;padding:.6vh .8vw;background:rgba(255,255,255,.06);border-radius:8px;"><span style="color:rgba(255,255,255,.6);font-size:clamp(10px,1vw,13px);">&#191;Es viable?</span><span style="color:#FF6B6B;font-weight:700;">S&#205; &mdash; a&#250;n es independencia</span></div>
+        </div>
+        <div style="background:rgba(201,168,76,.1);border-radius:8px;padding:.8vh 1vw;margin-top:1vh;border-left:3px solid var(--gold);">
+          <p style="font-size:clamp(10px,.95vw,13px);color:rgba(255,255,255,.75);">Incluso en el peor caso razonable, la familia tarda 4&ndash;6 a&ntilde;os m&aacute;s en llegar. No hay riqueza extrema; hay supervivencia, caja y libertad real.</p>
+        </div>
+      </div>
+    </div>
+    <div class="nota" style="margin-top:1.5vh;background:rgba(201,168,76,.08);border-color:var(--gold);color:rgba(255,255,255,.8);">
+      <strong style="color:var(--gold-l);">Protecci&#243;n autom&#225;tica (colch&#243;n macro):</strong> Si el MRR cae 2 meses seguidos, el payout de dividendos baja del 20% al 15% y la cuenta de Operaci&#243;n sube del 50% al 55%. El negocio no se financia con deuda &mdash; sobrevive con su propio cash flow.
+    </div>
+  </div>
+</div>
+
+<!-- ===== S13: RIESGOS REALES ===== -->
+<div class="slide" id="s13" style="background:var(--warm);">
+  <div class="slide-inner">
+    <span class="eyebrow">Transparencia total</span>
+    <h2 class="display" style="font-size:clamp(26px,3.2vw,48px);font-weight:400;color:var(--navy);margin-bottom:1.5vh;">Los riesgos reales &mdash; sin maquillaje.</h2>
+    <p style="font-size:clamp(11px,1.1vw,14px);color:var(--muted);margin-bottom:1.5vh;font-style:italic;">Tres IAs independientes revisaron este modelo. Todos los riesgos identificados est&#225;n incorporados en las proyecciones.</p>
+    <div class="two-col" style="align-items:start;">
+      <div style="display:flex;flex-direction:column;gap:1.2vh;">
+        <div style="background:white;border-radius:12px;padding:1.2vh 1.5vw;border-left:4px solid var(--red);">
+          <p style="font-size:clamp(12px,1.2vw,16px);font-weight:700;color:var(--red);margin-bottom:.4vh;">Riesgo 1 &mdash; IA Gratuita (cr&#237;tico)</p>
+          <p style="font-size:clamp(11px,1.1vw,14px);color:var(--text);line-height:1.6;">Google, OpenAI y Perplexity ya hacen verificaci&#243;n b&#225;sica gratis. VERAXIS ONE sobrevive solo si su diferenciador (credencial, historial, verticales) es claro y defiende el precio.</p>
+          <p style="font-size:clamp(10px,.95vw,13px);color:var(--muted);margin-top:.4vh;font-style:italic;">Incorporado: mercado objetivo bajado del 10% al 6%. Churn 20% en a&#241;os 1-4.</p>
+        </div>
+        <div style="background:white;border-radius:12px;padding:1.2vh 1.5vw;border-left:4px solid var(--orange);">
+          <p style="font-size:clamp(12px,1.2vw,16px);font-weight:700;color:var(--orange);margin-bottom:.4vh;">Riesgo 2 &mdash; Macro LATAM</p>
+          <p style="font-size:clamp(11px,1.1vw,14px);color:var(--text);line-height:1.6;">Inflaci&#243;n en Venezuela y Argentina, devaluaciones, problemas de cobro en d&#243;lares, crisis pol&#237;ticas. El mercado LATAM es vol&#225;til por naturaleza.</p>
+          <p style="font-size:clamp(10px,.95vw,13px);color:var(--muted);margin-top:.4vh;font-style:italic;">Incorporado: ticket LATAM conservador ($3.99-$42 vs. precio de lista). Churn alto en Venezuela/Bolivia.</p>
+        </div>
+        <div style="background:white;border-radius:12px;padding:1.2vh 1.5vw;border-left:4px solid var(--navy);">
+          <p style="font-size:clamp(12px,1.2vw,16px);font-weight:700;color:var(--navy);margin-bottom:.4vh;">Riesgo 3 &mdash; Competidores copian el modelo</p>
+          <p style="font-size:clamp(11px,1.1vw,14px);color:var(--text);line-height:1.6;">Si VERAXIS ONE demuestra tracci&#243;n, startups en M&#233;xico, Colombia o EE.UU. replicar&#225;n el modelo en 18-24 meses. Los precios se presionar&#225;n hacia abajo.</p>
+          <p style="font-size:clamp(10px,.95vw,13px);color:var(--muted);margin-top:.4vh;font-style:italic;">Incorporado: ralentizaci&#243;n del crecimiento en 2031-2033 mientras se diferencia con nuevas verticales.</p>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.2vh;">
+        <div style="background:white;border-radius:12px;padding:1.2vh 1.5vw;border-left:4px solid var(--purple);">
+          <p style="font-size:clamp(12px,1.2vw,16px);font-weight:700;color:var(--purple);margin-bottom:.4vh;">Riesgo 4 &mdash; Dependencia de Antonella</p>
+          <p style="font-size:clamp(11px,1.1vw,14px);color:var(--text);line-height:1.6;">SENDA Health y VERAXIS Health dependen de que Antonella complete su credencial m&#233;dica y su postgrado en gesti&#243;n de salud. Si llega tarde o no llega, el 25-30% del MRR final no se activa.</p>
+          <p style="font-size:clamp(10px,.95vw,13px);color:var(--muted);margin-top:.4vh;font-style:italic;">Incorporado en Escenario Duro: Antonella llega 2 a&#241;os tarde = -40% MRR final.</p>
+        </div>
+        <div style="background:white;border-radius:12px;padding:1.2vh 1.5vw;border-left:4px solid var(--teal);">
+          <p style="font-size:clamp(12px,1.2vw,16px);font-weight:700;color:var(--teal);margin-bottom:.4vh;">Riesgo 5 &mdash; SENDA vs. Gratuitos</p>
+          <p style="font-size:clamp(11px,1.1vw,14px);color:var(--text);line-height:1.6;">Life360 tiene 33M usuarios gratis. Google Family Link est&#225; integrado en Android. Convencer a familias de pagar $3.99 cuando tienen opciones gratuitas es el reto principal de los primeros 3 a&#241;os.</p>
+          <p style="font-size:clamp(10px,.95vw,13px);color:var(--muted);margin-top:.4vh;font-style:italic;">Incorporado: churn consumer 35% a&#241;os 1-3. Mercado objetivo = solo 3% del universo total.</p>
+        </div>
+        <div style="background:var(--lg);border-radius:12px;padding:1.2vh 1.5vw;border-left:4px solid var(--green);">
+          <p style="font-size:clamp(12px,1.2vw,16px);font-weight:700;color:var(--green);margin-bottom:.4vh;">&#10003; Costos reales y fases del modelo</p>
+          <p style="font-size:clamp(11px,1.1vw,14px);color:var(--text);line-height:1.6;">Los costos reales de VERAXIS ONE se calcularon rubro por rubro: sueldos del equipo, tecnolog&iacute;a/APIs, marketing, legal y operaciones. <strong>2027&ndash;2029: fase de inversi&oacute;n</strong> &mdash; los costos superan los ingresos, dividendos = $0, Carlos vive de su trabajo principal. <strong>2030&ndash;2031: breakeven</strong> &mdash; el negocio cubre sus costos. <strong>2032 en adelante: rentabilidad real</strong> &mdash; todos los dividendos de la tabla son alcanzables. En 2043 el margen neto es 60% &mdash; dentro del benchmark SaaS maduro (60&ndash;75%).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== S_COSTOS: DESGLOSE DE COSTOS POR RUBRO ===== -->
+<div class="slide" id="s_costos" style="background:#0F2538;">
+  <div class="slide-inner">
+    <span class="eyebrow" style="color:var(--gold);">Transparencia total &mdash; costos calculados rubro por rubro</span>
+    <h2 class="display" style="font-size:clamp(26px,3.2vw,46px);font-weight:300;color:white;margin-bottom:1.5vh;">
+      En qu&eacute; se gasta cada d&oacute;lar<br><em>de VERAXIS ONE.</em>
+    </h2>
+    <div class="two-col" style="align-items:start;gap:2vw;">
+
+      <!-- Tabla de rubros por fase -->
+      <div>
+        <p style="font-size:clamp(10px,1vw,13px);font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1vh;">Costos anuales por rubro (USD)</p>
+        <table style="width:100%;border-collapse:collapse;font-size:clamp(11px,1.1vw,14px);">
+          <tr>
+            <th style="background:#2E5C8A;color:white;padding:.6vh .9vw;text-align:left;">Rubro</th>
+            <th style="background:#2E5C8A;color:white;padding:.6vh .9vw;">2027</th>
+            <th style="background:#2E5C8A;color:white;padding:.6vh .9vw;">2029</th>
+            <th style="background:#2E5C8A;color:white;padding:.6vh .9vw;">2032</th>
+            <th style="background:#2E5C8A;color:white;padding:.6vh .9vw;">2035</th>
+            <th style="background:#2E5C8A;color:white;padding:.6vh .9vw;">2037</th>
+            <th style="background:#2E5C8A;color:white;padding:.6vh .9vw;">2043</th>
+          </tr>
+          <tr style="background:rgba(255,255,255,.08);">
+            <td style="padding:.55vh .9vw;color:white;border-bottom:1px solid rgba(255,255,255,.08);">&#128101; Sueldos del equipo</td>
+            <td style="padding:.55vh .9vw;color:var(--gold-l);border-bottom:1px solid rgba(255,255,255,.08);">$21K</td>
+            <td style="padding:.55vh .9vw;color:var(--gold-l);border-bottom:1px solid rgba(255,255,255,.08);">$48K</td>
+            <td style="padding:.55vh .9vw;color:var(--gold-l);border-bottom:1px solid rgba(255,255,255,.08);">$172K</td>
+            <td style="padding:.55vh .9vw;color:var(--gold-l);border-bottom:1px solid rgba(255,255,255,.08);">$691K</td>
+            <td style="padding:.55vh .9vw;color:var(--gold-l);border-bottom:1px solid rgba(255,255,255,.08);">$691K</td>
+            <td style="padding:.55vh .9vw;color:var(--gold-l);border-bottom:1px solid rgba(255,255,255,.08);">$1.57M</td>
+          </tr>
+          <tr style="background:rgba(255,255,255,.04);">
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.06);">&#128187; Tecnolog&iacute;a e IA</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06);">$17K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06);">$25K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06);">$97K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06);">$269K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06);">$439K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06);">$961K</td>
+          </tr>
+          <tr style="background:rgba(255,255,255,.08);">
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.08);">&#128227; Marketing y Adquisici&oacute;n</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">$3K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">$20K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">$95K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">$233K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">$278K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">$1.04M</td>
+          </tr>
+          <tr style="background:rgba(255,255,255,.04);">
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.06);">&#9878; Legal y Compliance</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06);">$4K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06);">$6K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06);">$12K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06);">$22K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06);">$30K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06);">$96K</td>
+          </tr>
+          <tr style="background:rgba(255,255,255,.08);">
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.08);">&#128203; Especialistas externos</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">$2K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">$8K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">$28K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">$25K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">$55K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.08);">$37K</td>
+          </tr>
+          <tr style="background:rgba(255,255,255,.04);">
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.85);border-bottom:1px solid rgba(255,255,255,.06);">&#9881; Operaciones generales</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06);">$2K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06);">$2K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06);">$10K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06);">$15K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06);">$39K</td>
+            <td style="padding:.55vh .9vw;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.06);">$39K</td>
+          </tr>
+          <tr style="background:rgba(201,168,76,.15);">
+            <td style="padding:.6vh .9vw;color:white;font-weight:700;">TOTAL COSTOS</td>
+            <td style="padding:.6vh .9vw;color:var(--gold-l);font-weight:700;">$49K</td>
+            <td style="padding:.6vh .9vw;color:var(--gold-l);font-weight:700;">$119K</td>
+            <td style="padding:.6vh .9vw;color:var(--gold-l);font-weight:700;">$479K</td>
+            <td style="padding:.6vh .9vw;color:var(--gold-l);font-weight:700;">$1.42M</td>
+            <td style="padding:.6vh .9vw;color:var(--gold-l);font-weight:700;">$1.78M</td>
+            <td style="padding:.6vh .9vw;color:var(--gold-l);font-weight:700;">$4.05M</td>
+          </tr>
+          <tr style="background:rgba(26,92,53,.3);">
+            <td style="padding:.6vh .9vw;color:white;font-weight:700;">ARR (ingresos)</td>
+            <td style="padding:.6vh .9vw;color:#4CAF82;font-weight:700;">$14K</td>
+            <td style="padding:.6vh .9vw;color:#4CAF82;font-weight:700;">$111K</td>
+            <td style="padding:.6vh .9vw;color:#4CAF82;font-weight:700;">$634K</td>
+            <td style="padding:.6vh .9vw;color:#4CAF82;font-weight:700;">$1.94M</td>
+            <td style="padding:.6vh .9vw;color:#4CAF82;font-weight:700;">$3.48M</td>
+            <td style="padding:.6vh .9vw;color:#4CAF82;font-weight:700;">$12.96M</td>
+          </tr>
+          <tr>
+            <td style="padding:.6vh .9vw;color:white;font-weight:700;background:rgba(255,255,255,.05);">Margen neto</td>
+            <td style="padding:.6vh .9vw;font-weight:700;color:#FF6666;background:rgba(139,0,0,.25);">-246%</td>
+            <td style="padding:.6vh .9vw;font-weight:700;color:#FF6666;background:rgba(139,0,0,.25);">-7%</td>
+            <td style="padding:.6vh .9vw;font-weight:700;color:#4CAF82;background:rgba(26,92,53,.25);">+24%</td>
+            <td style="padding:.6vh .9vw;font-weight:700;color:#4CAF82;background:rgba(26,92,53,.25);">+27%</td>
+            <td style="padding:.6vh .9vw;font-weight:700;color:#4CAF82;background:rgba(26,92,53,.25);">+49%</td>
+            <td style="padding:.6vh .9vw;font-weight:700;color:#4CAF82;background:rgba(26,92,53,.25);">+69%</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Panel derecho: explicación de cada rubro y estructura equipo -->
+      <div style="display:flex;flex-direction:column;gap:1.2vh;">
+
+        <!-- Rubros explicados -->
+        <div style="background:rgba(255,255,255,.06);border-radius:12px;padding:1.2vh 1.4vw;border-left:4px solid var(--gold);">
+          <p style="color:var(--gold);font-weight:700;font-size:clamp(11px,1.1vw,14px);margin-bottom:.8vh;">Qu&eacute; incluye cada rubro</p>
+          <div style="display:flex;flex-direction:column;gap:.5vh;font-size:clamp(10px,.95vw,12px);">
+            <div style="display:flex;gap:.8vw;"><span style="color:var(--gold-l);min-width:20px;">&#128101;</span><span style="color:rgba(255,255,255,.75);">Sueldos: devs remotos LATAM, marketing, ventas, soporte &mdash; desde 2 personas en 2027 hasta 38 en 2043</span></div>
+            <div style="display:flex;gap:.8vw;"><span style="color:var(--gold-l);min-width:20px;">&#128187;</span><span style="color:rgba(255,255,255,.75);">Tecnolog&iacute;a: APIs de IA (OpenAI/Anthropic), hosting AWS, herramientas del equipo (Slack, GitHub, etc.)</span></div>
+            <div style="display:flex;gap:.8vw;"><span style="color:var(--gold-l);min-width:20px;">&#128227;</span><span style="color:rgba(255,255,255,.75);">Marketing: publicidad pagada (LinkedIn, Google Ads), contenido SEO, email. Baja del 20% al 8% del ARR con el tiempo</span></div>
+            <div style="display:flex;gap:.8vw;"><span style="color:var(--gold-l);min-width:20px;">&#9878;</span><span style="color:rgba(255,255,255,.75);">Legal: abogado SaaS, contratos B2B, T&amp;C, compliance financiero (2031), HIPAA m&eacute;dico (2037)</span></div>
+            <div style="display:flex;gap:.8vw;"><span style="color:var(--gold-l);min-width:20px;">&#128203;</span><span style="color:rgba(255,255,255,.75);">Especialistas: CPA/contador, consultor IA/ML, consultor seguridad, consultor HIPAA (2037+)</span></div>
+            <div style="display:flex;gap:.8vw;"><span style="color:var(--gold-l);min-width:20px;">&#9881;</span><span style="color:rgba(255,255,255,.75);">Operaciones: seguro E&amp;O, contabilidad, viajes/conferencias, oficina virtual</span></div>
+          </div>
+        </div>
+
+        <!-- Estructura del equipo -->
+        <div style="background:rgba(27,58,92,.5);border-radius:12px;padding:1.2vh 1.4vw;border:1px solid rgba(255,255,255,.08);">
+          <p style="color:var(--gold);font-weight:700;font-size:clamp(11px,1.1vw,14px);margin-bottom:.8vh;">Tama&ntilde;o del equipo por fase</p>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8vw;">
+            <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:.7vh .9vw;text-align:center;">
+              <p style="font-size:clamp(9px,.85vw,11px);color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.1em;">2027</p>
+              <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.2vw,30px);color:var(--gold-l);font-weight:600;">2</p>
+              <p style="font-size:clamp(9px,.85vw,11px);color:rgba(255,255,255,.5);">Carlos + 1 dev freelance</p>
+            </div>
+            <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:.7vh .9vw;text-align:center;">
+              <p style="font-size:clamp(9px,.85vw,11px);color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.1em;">2032</p>
+              <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.2vw,30px);color:var(--gold-l);font-weight:600;">6</p>
+              <p style="font-size:clamp(9px,.85vw,11px);color:rgba(255,255,255,.5);">Dev + IA + Mktg + Sales + Soporte</p>
+            </div>
+            <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:.7vh .9vw;text-align:center;">
+              <p style="font-size:clamp(9px,.85vw,11px);color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.1em;">2037</p>
+              <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.2vw,30px);color:var(--gold-l);font-weight:600;">19</p>
+              <p style="font-size:clamp(9px,.85vw,11px);color:rgba(255,255,255,.5);">CTO + devs + CMO + ventas + CS</p>
+            </div>
+            <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:.7vh .9vw;text-align:center;">
+              <p style="font-size:clamp(9px,.85vw,11px);color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.1em;">2040</p>
+              <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.2vw,30px);color:var(--gold-l);font-weight:600;">39</p>
+              <p style="font-size:clamp(9px,.85vw,11px);color:rgba(255,255,255,.5);">Empresa completa con COO</p>
+            </div>
+            <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:.7vh .9vw;text-align:center;">
+              <p style="font-size:clamp(9px,.85vw,11px);color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.1em;">Sueldo dev</p>
+              <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.2vw,30px);color:var(--gold-l);font-weight:600;">$3K</p>
+              <p style="font-size:clamp(9px,.85vw,11px);color:rgba(255,255,255,.5);">/mes remoto LATAM</p>
+            </div>
+            <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:.7vh .9vw;text-align:center;">
+              <p style="font-size:clamp(9px,.85vw,11px);color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.1em;">Carlos sueldo</p>
+              <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.2vw,30px);color:var(--gold-l);font-weight:600;">$0</p>
+              <p style="font-size:clamp(9px,.85vw,11px);color:rgba(255,255,255,.5);">hasta que el biz lo aguante</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- % del ARR por rubro en 2043 -->
+        <div style="background:rgba(255,255,255,.04);border-radius:12px;padding:1.2vh 1.4vw;border:1px solid rgba(255,255,255,.06);">
+          <p style="color:var(--gold);font-weight:700;font-size:clamp(11px,1.1vw,14px);margin-bottom:.8vh;">Distribuci&oacute;n del ARR en 2043 (madurez)</p>
+          <div style="display:flex;flex-direction:column;gap:.5vh;">
+            <div style="display:flex;align-items:center;gap:.8vw;">
+              <div style="width:clamp(70px,9vw,130px);font-size:clamp(9px,.9vw,12px);color:rgba(255,255,255,.6);">Sueldos</div>
+              <div style="flex:1;height:10px;background:rgba(255,255,255,.1);border-radius:5px;overflow:hidden;"><div style="width:12.1%;height:100%;background:var(--gold);border-radius:5px;"></div></div>
+              <div style="font-size:clamp(9px,.9vw,12px);color:var(--gold-l);font-weight:700;min-width:35px;">12%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:.8vw;">
+              <div style="width:clamp(70px,9vw,130px);font-size:clamp(9px,.9vw,12px);color:rgba(255,255,255,.6);">Tecnolog&iacute;a</div>
+              <div style="flex:1;height:10px;background:rgba(255,255,255,.1);border-radius:5px;overflow:hidden;"><div style="width:7.4%;height:100%;background:#2E7DBF;border-radius:5px;"></div></div>
+              <div style="font-size:clamp(9px,.9vw,12px);color:#6BB8F0;font-weight:700;min-width:35px;">7%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:.8vw;">
+              <div style="width:clamp(70px,9vw,130px);font-size:clamp(9px,.9vw,12px);color:rgba(255,255,255,.6);">Marketing</div>
+              <div style="flex:1;height:10px;background:rgba(255,255,255,.1);border-radius:5px;overflow:hidden;"><div style="width:8%;height:100%;background:#7D3C00;border-radius:5px;"></div></div>
+              <div style="font-size:clamp(9px,.9vw,12px);color:#E8A060;font-weight:700;min-width:35px;">8%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:.8vw;">
+              <div style="width:clamp(70px,9vw,130px);font-size:clamp(9px,.9vw,12px);color:rgba(255,255,255,.6);">Legal</div>
+              <div style="flex:1;height:10px;background:rgba(255,255,255,.1);border-radius:5px;overflow:hidden;"><div style="width:.7%;height:100%;background:#4A235A;border-radius:5px;"></div></div>
+              <div style="font-size:clamp(9px,.9vw,12px);color:#C888E8;font-weight:700;min-width:35px;">&lt;1%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:.8vw;">
+              <div style="width:clamp(70px,9vw,130px);font-size:clamp(9px,.9vw,12px);color:rgba(255,255,255,.6);">Otros</div>
+              <div style="flex:1;height:10px;background:rgba(255,255,255,.1);border-radius:5px;overflow:hidden;"><div style="width:3%;height:100%;background:rgba(255,255,255,.3);border-radius:5px;"></div></div>
+              <div style="font-size:clamp(9px,.9vw,12px);color:rgba(255,255,255,.5);font-weight:700;min-width:35px;">3%</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:.8vw;margin-top:.3vh;border-top:1px solid rgba(255,255,255,.1);padding-top:.5vh;">
+              <div style="width:clamp(70px,9vw,130px);font-size:clamp(9px,.9vw,12px);color:#4CAF82;font-weight:700;">Margen neto</div>
+              <div style="flex:1;height:10px;background:rgba(255,255,255,.1);border-radius:5px;overflow:hidden;"><div style="width:69%;height:100%;background:#1A5C35;border-radius:5px;"></div></div>
+              <div style="font-size:clamp(9px,.9vw,12px);color:#4CAF82;font-weight:700;min-width:35px;">69%</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== S_CIERRE: PARA TI, CON TODO LO QUE TENGO ===== -->
+<div class="slide" id="s_cierre" style="background:var(--navy);">
+  <div class="cover-glow"></div>
+  <div style="text-align:center;max-width:780px;position:relative;z-index:1;">
+    <span class="eyebrow" style="color:var(--gold);">Para ti, con todo lo que tengo</span>
+    <h2 class="display" style="font-size:clamp(36px,5vw,72px);font-weight:300;color:white;line-height:1.1;margin-bottom:2.5vh;">No te pido que conf&#237;es<br>en un sue&#241;o.<br>Te pido que conf&#237;es<br><em>en el plan.</em></h2>
+    <p style="font-size:clamp(14px,1.5vw,19px);color:rgba(255,255,255,.55);line-height:1.8;max-width:640px;margin:0 auto 3vh;">Cada n&#250;mero que ves aqu&#237; existe porque llevo meses construyendo esto para nosotros. Para Antonella. Para nuestra hija menor. Para que en 7 a&#241;os tengamos la libertad que merecemos.</p>
+    <div style="width:60px;height:1px;background:var(--gold);margin:0 auto 2.5vh;opacity:.6;"></div>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(18px,2vw,26px);font-style:italic;color:rgba(255,255,255,.8);margin-bottom:.5vh;">Carlos Salazar</p>
+    <p style="font-size:clamp(10px,1vw,13px);font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.3);">Fundador &middot; AMJ Holding LLC &middot; Marzo 2026</p>
+  </div>
+</div>
+
+
+</div>
+<script>
+let current=0;
+const slides=document.querySelectorAll('.slide');
+const total=slides.length;
+function updateUI(){document.getElementById('progress').style.width=((current+1)/total*100)+'%';document.getElementById('counter').textContent=(current+1)+' / '+total;}
+function goTo(n){if(n<0||n>=total)return;slides[current].classList.remove('active');slides[current].classList.add('out');setTimeout(function(){slides[current].classList.remove('out');},500);current=n;slides[current].classList.add('active');updateUI();}
+function changeSlide(dir){goTo(current+dir);}
+document.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){e.preventDefault();changeSlide(1);}if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();changeSlide(-1);}if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement){document.documentElement.requestFullscreen();}else{document.exitFullscreen();}}});
+let tx=0;document.addEventListener('touchstart',function(e){tx=e.changedTouches[0].clientX;},{passive:true});document.addEventListener('touchend',function(e){const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)changeSlide(dx<0?1:-1);},{passive:true});
+updateUI();
+</script>
+</body>
+</html>
